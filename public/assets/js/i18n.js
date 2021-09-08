@@ -11,6 +11,9 @@ const i18n = new I18n({
           },
           Willkommen: "Willkommen"
         },
+        Startseite: {
+
+        }
       }
     }
 });
@@ -42,3 +45,12 @@ function convertFlags(lang_string){
     return lang_string
   }
 }
+
+function setLanguageKey(){
+  if(!localStorage.getItem('Language')){
+    let userLang = navigator.language.substring(0,2).toLocaleLowerCase() || navigator.userLanguage.substring(0,2).toLocaleLowerCase(); 
+    localStorage.setItem('Language', userLang)
+  }
+}
+
+setLanguageKey()

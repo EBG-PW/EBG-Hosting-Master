@@ -8,10 +8,16 @@
 function createHeaderLinks(active) {
     var HeaderHTML = "";
         
-        if(active.toLowerCase() === "FAQ".toLowerCase()){
-            HeaderHTML += `<li><a href="FAQ.html" class="active">${translate('Header.Links.FAQ')}</a></li>`
+        if(active.toLowerCase() === "INDEX".toLowerCase()){
+            HeaderHTML += `<li><a href="index.html" class="active">${translate('Header.Links.Startseite')}</a></li>`
         }else{
-            HeaderHTML += `<li><a href="FAQ.html">${translate('Header.Links.FAQ')}</a></li>`
+            HeaderHTML += `<li><a href="index.html">${translate('Header.Links.Startseite')}</a></li>`
+        }
+
+        if(active.toLowerCase() === "FAQ".toLowerCase()){
+            HeaderHTML += `<li><a href="faq.html" class="active">${translate('Header.Links.FAQ')}</a></li>`
+        }else{
+            HeaderHTML += `<li><a href="faq.html">${translate('Header.Links.FAQ')}</a></li>`
         }
         
         if(localStorage.getItem('Admin') === true || localStorage.getItem('Admin') === "true"){
@@ -44,7 +50,7 @@ function createHeaderLinks(active) {
  * @returns {Promise}
  */
  function createSiteTitle() {
-    let SofwareName = "LAN-Manager" //Chance this if your event has a diffrent Name
+    let SofwareName = "EBG-Hosting" //Chance this if your event has a diffrent Name
     let HeaderHTML = `${SofwareName}: ${localStorage.getItem('Username')}`;
 
    $("#SideTile").text(HeaderHTML);

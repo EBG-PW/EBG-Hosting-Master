@@ -28,8 +28,12 @@ function createHeaderLinks(active) {
                 HeaderHTML += `<li><a href="Kunden.html">${translate('Header.Links.Kunden')}</a></li>`
             }
         }
-
-        HeaderHTML += `<li><p id="logout" onclick="logout()">${translate('Header.Links.Ausloggen')}</p></li>`
+        if(localStorage.getItem('Token')){
+            HeaderHTML += `<li><p id="logout" onclick="logout()">${translate('Header.Links.Ausloggen')}</p></li>`
+        }else{
+            HeaderHTML += `<li><p><a href="Login.html">${translate('Header.Links.Einloggen')}</a></p></li>`
+        }
+        
 
     $("#LinksList").html(HeaderHTML);
 }
@@ -40,7 +44,7 @@ function createHeaderLinks(active) {
  */
  function createHeaderMessage() {
      let SofwareName = "Hosting-Manager" //Chance this if your event has a diffrent Name
-     let HeaderHTML = `${SofwareName}: ${translate('Header.Willkommen')} ${localStorage.getItem('Username')}`;
+     let HeaderHTML = `${SofwareName}`;
 
     $("#HeaderWelcome").text(HeaderHTML);
 }
@@ -51,7 +55,7 @@ function createHeaderLinks(active) {
  */
  function createSiteTitle() {
     let SofwareName = "EBG-Hosting" //Chance this if your event has a diffrent Name
-    let HeaderHTML = `${SofwareName}: ${localStorage.getItem('Username')}`;
+    let HeaderHTML = `${SofwareName}`;
 
    $("#SideTile").text(HeaderHTML);
 }

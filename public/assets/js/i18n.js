@@ -7,9 +7,9 @@ const i18n = new I18n({
             Startseite: "Startseite",
             FAQ: "FAQ",
             Kunden: "Kunden",
-            Ausloggen: "Ausloggen"
+            Ausloggen: "Ausloggen",
+            Einloggen: "Einloggen",
           },
-          Willkommen: "Willkommen"
         },
         Startseite: {
 

@@ -25,13 +25,12 @@
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-
 				<!-- Main -->
 					<section id="main" class="wrapper">
 						<div class="inner">
+							<div id="KundenListe"></div>
 						</div>
 					</section>
-
 			</div>
 
 		<!-- Footer -->
@@ -48,6 +47,7 @@
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/checkToken.js"></script>
 			<script src="assets/js/buttons.js"></script>
+			<script src="assets/js/table.js"></script>
             <script src="https://unpkg.com/new-i18n@3.0.0-5/lib/index.js"></script>
             <script src="assets/js/i18n.js"></script>
 			<script src="assets/js/BuildHTML.js"></script>
@@ -59,9 +59,28 @@
 			<script src="assets/js/main.js"></script>
 			<script>
 				CheckTokenValidity()
-                createHeaderLinks("index");
+                createHeaderLinks("Kunden");
                 createHeaderMessage();
                 createSiteTitle();
+
+				const getUrl = window.location;
+				const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
+
+				var posting = $.get(`${baseUrl}api/v1/kunden/all`,{
+					Token: localStorage.getItem("token")
+				});
+
+				posting.done(function(data) {
+					for (let i = 0; i < data.result.length; i++) {
+						data.result[i].email = `${convertFlags(data.result[i].lang)} ${data.result[i].email}`
+						
+						$("#KundenListe").html(ButtonCreateTable(['email', 'admin', 'panelid', 'coinsperweek', 'maxcoins'], [''], data.result, 'KundenListe', true))
+					}
+				});
+
+				posting.fail(function(error) {
+					$("#KundenListe").text(translate('Kunden.Errors.CommunicationError'))
+				});
 			</script>
 	</body>
 	</body>

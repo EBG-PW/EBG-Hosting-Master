@@ -1,0 +1,27 @@
+<h1>Allgemeine Geschäftsbedingungen</h1>
+<br>
+<h2>Vorwort</h2>
+§1 Geltung gegenüber Unternehmern und Begriffsdefinitionen(1) Die nachfolgenden Allgemeinen Geschäftsbedingungen gelten für alle Lieferungen zwischen uns und einem Verbraucher oder Unternehmer in ihrer zum Zeitpunkt der Bestellung gültigen Fassung.<br>
+Verbraucher ist jede natürliche Person, die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit zugerechnet werden können (§ 13 BGB).<br><br>
+Wir, <a href="Impressum.html">EBG.PW</a>, bieten den Usern kostenlose automatisierte Dienstleistungen an. Wenn der Nutzer einen Server unentgeltlich bucht, akzeptiert er folgende Bedingungen:<br><br>
+<h2>1.	Recht auf die Dienstleistung</h2>
+Der Nutzer hat kein Recht oder Anspruch auf seine Dienstleistung, da er diese unentgeltlich zur Verfügung gestellt bekommt. Um Missbrauch vorzubeugen muss der Nutzer einmal alle 7 Tage seine Dienste Verlängern da diese sonst automatisch pausiert und nach 60 Tagen gelöscht werdenn.
+<br><br><h2>2. Anzahl der Dienstleistungen</h2>
+Der Nutzer kann mehrere Dienstleistungen in Anspruch nehmen diese erfordern Coins, die kostenfrei zu erreichen sind.
+<br><br><h2>3. Support</h2>
+Wir sind bemüht, einen erreichbaren und guten Support zu gewährleisten. Allerdings hat der User keinen Anspruch auf Support. Rechtliche Anfragen können per E-Mail an support@ebg.pw gesendet werden.
+<br><br><h2>4. Benutzerkonto</h2>
+Um eine Dienstleistung in Anspruch zu nehmen, ist die Erstellung eines Benutzerkontos Pflicht. Es darf pro Person maximal ein Account angelegt werden. Für die Erstellung eines Kontos muss der User das 16. Lebensjahr erreicht haben. Sollte der Nutzer minderjährig sein, gehen wir von der Zustimmung der Erziehungsberechtigten aus. Diese können ihre vorbehaltliche Zustimmung per E-Mail an support@ebg.pw widerrufen. Mit dem Erstellen eines Benutzerkontos bestätigt der Nutzer, das Alter erreicht zu haben. Sollte support@ebg.pw Kenntnis davon erlangen, dass ein Nutzer das 16. Lebensjahr nicht erreicht hat, wird der Nutzer umgehend gesperrt, und seine Daten gelöscht.
+<br><br><h2>5. Pflichten des Nutzers</h2>
+<p><b>(1)</b> Der Nutzer verpflichtet sich, seinen Server nach aktuellen technischen Standard zu sichern, zu pflegen und zu moderieren. Ein Dienst darf nicht für kommerzielle Tätigkeiten genutzt werden.</p>
+<p><b>(2)</b> Der Nutzer darf den Server nur für den angegebenen Zweck (z.B. einen Minecraft-Server) nutzen. Das Hochladen einer sog. „Custom-Jar“ zum Zweck, die Dienstleistung für einen anderen Zweck zu nutzen, ist untersagt.</p>
+<p><b>(3)</b> Dem Nutzer ist es nicht gestattet Software die eine übermäßige unverhältnismäßige Beanspruchung der Serverhardware produziert oder Spieler simuliert, um zu verhindern, dass der Dienst automatisiert heruntergefahren wird, zu nutzen. (bestimmte Mods/Plugins, Miner, etc.). Bei Kenntnisnahme werden wir den Benutzer umgehend sperren und uns weitere Schritte vorbehalten.</p>
+<p><b>(4)</b> Der Nutzer haftet vollständig für die Inhalte des Servers. Diese müssen mit diesen AGB, den Gesetzen der Bundesrepublik Deutschland, sowie ggf. den Gesetzen des Aufenthaltsland des Users übereinstimmen.</p>
+<p><b>(5)</b> Der Nutzer ist eigenverantwortlich für Datensicherung seiner, kostenlos zur Verfügung gestellten, Dienste.</p>
+<h2>6. Datensicherung und allgemeine Daten: </h2>
+Daten von <a href="Impressum.html">EBG.PW</a> werden grundlegend auf Datenträgern gespeichert, welche sich in einem Verbund aus Datenträgern befinden. Eine Erhebung von Besitzansprüchen seitens des Benutzers gegenüber <a href="Impressum.html">EBG.PW</a> ist zu jeder Zeit ausgeschlossen.<br>
+<a href="Impressum.html">EBG.PW</a> legt auf freiwilliger Grundlage Datensicherungen an und lagert diese nach einem 3-2-1 Datensicherungs-Prinzip.<br>
+Ein Besitz- oder genereller Anspruch auf diese Datensicherungen sind zu jeder Zeit ausgeschlossen. 
+<h2>7. Rechte von <a href="Impressum.html">EBG.PW</a></h2>
+<a href="Impressum.html">EBG.PW</a> behält sich vor, eine aktive Dienstleistung ohne Angabe von Gründen und zu sofortiger Wirkung.  zu sperren. Der User wird umgehend über den Grund benachrichtigt. <a href="Impressum.html">EBG.PW</a> darf des weiteren seine Dienste ohne Begründung zu jeder Zeit einstellen.<br><br>
+<a href="Impressum.html">EBG.PW</a> behält sich das Recht einer Änderung dieser AGB vor. Die Nutzer werden per E-Mail benachrichtigt.

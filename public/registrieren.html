@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title id="SideTile"></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" id="HeaderWelcome" class="title"></a>
+				<nav>
+					<ul id="LinksList">
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+                            <h2 id="FormUserReg"></h2>
+								<form method="post" id="RegForm" action="#">
+									<div class="row gtr-uniform">
+										<div class="col-8 col-12-xsmall">
+											<input type="text" name="email" id="email" value="" placeholder="" />
+										</div>
+										<div class="col-8 col-12-xsmall">
+											<input type="password" name="password" id="password" value="" placeholder="" />
+										</div>
+										<div class="col-8 col-12-xsmall">
+											<input type="password" name="rpassword" id="rpassword" value="" placeholder="" />
+										</div>
+										<div id="CheckBoxHi" class="col-6 col-12-small">
+											<input type="checkbox" id="lastCheck" name="lastCheck">
+											<label for="lastCheck">Ich akzeptiere die <a onclick="Show_Legal('AGB')">AGB</a> und <a onclick="Show_Legal('DAT')">Datenschutz</a>!</label>
+										</div><br>										
+										<div class="col-12">
+											<ul class="actions">
+												<li><input type="submit" id="Submit" value="" class="primary" /></li>
+											</ul>
+										</div>
+									</div>
+								</form>
+								<div id="SubmitCallback"></div>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Hosting-Manager by EBG.PW | All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li><a onclick="Show_Legal('AGB')">AGB</a></li><li><a onclick="Show_Legal('DAT')">Datenschutz</a></li><li><a onclick="Show_Legal('IMP')">Impressum</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script>const exports = {};//Fixes i18n Stuff lol.</script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/checkToken.js"></script>
+			<script src="assets/js/buttons.js"></script>
+            <script src="https://unpkg.com/new-i18n@3.0.0-5/lib/index.js"></script>
+            <script src="assets/js/i18n.js"></script>
+			<script src="assets/js/BuildHTML.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script>
+				CheckTokenValidity()
+                createHeaderLinks("Registrieren");
+                createHeaderMessage();
+                createSiteTitle();
+
+                /* Translate all Buttons and Boxes */
+                $("#FormUserReg").html(translate('Registrieren.Form.FormUserReg'));
+                $("#password").attr("placeholder", (translate('Registrieren.Form.Passwort')));
+				$("#rpassword").attr("placeholder", (translate('Registrieren.Form.RPasswort')));
+                $("#email").attr("placeholder", (translate('Registrieren.Form.Email')));
+                $("#Submit").attr("value", (translate('Registrieren.Form.Submit')));
+
+				$("#RegForm").submit(function(event) {
+						event.preventDefault();
+						var $form = $(this)
+						const getUrl = window.location;
+        				const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
+						const OrderIDFromUrl = getUrl.search.split("?").join("") //Get RegToken from URL
+
+					if($('#password').val() === $('#rpassword').val() && $('#password').val().length > 10){
+						if($('#lastCheck').is(':checked') === false){
+							$('#result').text(translate('Registrieren.Form.Error.ConfirmLegal'));
+							$('#CheckBoxHi').addClass("highlight");
+							setTimeout(function () {
+								$('#CheckBoxHi').removeClass('highlight');
+							}, 2000);
+						}else{
+							var posting = $.post(`${baseUrl}api/v1/register/register`,{
+								Email: $('#email').val(),
+								Password: $('#password').val(),
+								RegToken: OrderIDFromUrl,
+								Lang: localStorage.getItem('Language'),
+								LegalAccepted: true
+							});
+
+							posting.done(function(data) {
+								window.location.replace(`${baseUrl}/login.html`);
+							});
+
+							posting.fail(function(err) {
+								if(err.status == 401){
+									$('#SubmitCallback').text(translate('Registrieren.Form.Errors.InvalidToken'));
+								}
+								if(err.status == 423){
+									$('#SubmitCallback').text(translate('Registrieren.Form.Errors.UserTaken'));
+								}
+								let RespArr = err.responseJSON.message.split('"');
+								function jsUcfirst(string) 
+								{
+									return string.charAt(0).toUpperCase() + string.slice(1);
+								}
+								if(RespArr[2].replace(/"/g,'',) === " is not allowed to be empty"){
+									if(RespArr[1].replace(/"/g,'',) === "Email"){
+										$('#email').addClass("highlight");
+										setTimeout(function () {
+											$('#email').removeClass('highlight');
+										}, 2000);
+										$('#SubmitCallback').text(RespArr[1].replace(/"/g,'',) + translate('Registrieren.Form.Errors.MissingField'));
+									}
+									if(RespArr[1].replace(/"/g,'',) === "RegToken"){
+										$('#SubmitCallback').text(translate('Registrieren.Form.Errors.MissingToken'));
+									}
+								}else if(RespArr[2].replace(/"/g,'',) === " must be a valid email"){
+									if(RespArr[1].replace(/"/g,'',) === "Email"){
+										$('#email').addClass("highlight");
+										setTimeout(function () {
+											$('#email').removeClass('highlight');
+										}, 2000);
+										$('#SubmitCallback').text(RespArr[1].replace(/"/g,'',) + translate('Registrieren.Form.Errors.WrongField'));
+									}
+								}
+							});
+						}
+						
+
+					}else{
+						$('#SubmitCallback').text(translate('Registrieren.Form.Errors.PasswordMissmatch'));
+						$('#password').addClass("highlight");
+						$('#rpassword').addClass("highlight");
+						setTimeout(function () {
+							$('#password').removeClass('highlight');
+							$('#rpassword').removeClass('highlight');
+						}, 2000);
+					}
+				})
+			</script>
+	</body>
+	</body>
+</html>

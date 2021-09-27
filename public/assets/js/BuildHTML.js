@@ -19,21 +19,38 @@ function createHeaderLinks(active) {
         }else{
             HeaderHTML += `<li><a href="faq.html">${translate('Header.Links.FAQ')}</a></li>`
         }
-        
-        if(localStorage.getItem('Admin') === true || localStorage.getItem('Admin') === "true"){
-            //IF Admin add :D
-            if(active.toLowerCase() === "Kunden".toLowerCase()){
-                HeaderHTML += `<li><a href="Kunden.html" class="active">${translate('Header.Links.Kunden')}</a></li>`
+
+        if(localStorage.getItem('token')){
+            //IF user is loged in
+            if(active.toLowerCase() === "credits".toLowerCase()){
+                HeaderHTML += `<li><a href="credits.html" class="active">${translate('Header.Links.Credits')}</a></li>`
             }else{
-                HeaderHTML += `<li><a href="Kunden.html">${translate('Header.Links.Kunden')}</a></li>`
+                HeaderHTML += `<li><a href="credits.html">${translate('Header.Links.Credits')}</a></li>`
             }
         }
-        if(localStorage.getItem('Token')){
-            HeaderHTML += `<li><p id="logout" onclick="logout()">${translate('Header.Links.Ausloggen')}</p></li>`
-        }else{
-            HeaderHTML += `<li><p><a href="Login.html">${translate('Header.Links.Einloggen')}</a></p></li>`
+        
+        if(localStorage.getItem('admin') === true || localStorage.getItem('admin') === "true"){
+            //IF Admin add :D
+            if(active.toLowerCase() === "Kunden".toLowerCase()){
+                HeaderHTML += `<li><a  href="kunden.html" class="active">${translate('Header.Links.Kunden')}</a></li>`
+            }else{
+                HeaderHTML += `<li><a style="color: #00aa00;" href="kunden.html">${translate('Header.Links.Kunden')}</a></li>`
+            }
         }
         
+        if(active.toLocaleLowerCase() === "Registrieren".toLocaleLowerCase()){
+            HeaderHTML += `<li><p><a href="registrieren.html" class="active">${translate('Header.Links.Registrieren')}</a></p></li>`
+        }else{
+            if(localStorage.getItem('token')){
+                HeaderHTML += `<li><p id="logout" onclick="logout()">${translate('Header.Links.Ausloggen')}</p></li>`
+            }else{
+                if(active.toLowerCase() === "login".toLowerCase()){
+                    HeaderHTML += `<li><p><a href="login.html" class="active">${translate('Header.Links.Einloggen')}</a></p></li>`
+                }else{
+                    HeaderHTML += `<li><p><a href="login.html">${translate('Header.Links.Einloggen')}</a></p></li>`
+                }
+            }
+        }
 
     $("#LinksList").html(HeaderHTML);
 }
@@ -43,7 +60,7 @@ function createHeaderLinks(active) {
  * @returns {Promise}
  */
  function createHeaderMessage() {
-     let SofwareName = "Hosting-Manager" //Chance this if your event has a diffrent Name
+     let SofwareName = "EBG Hosting-Manager" //Chance this if your event has a diffrent Name
      let HeaderHTML = `${SofwareName}`;
 
     $("#HeaderWelcome").text(HeaderHTML);

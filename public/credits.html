@@ -29,7 +29,13 @@
 				<!-- Main -->
 					<section id="main" class="wrapper">
 						<div class="inner">
-						</div>
+							<h2 id="CreditsHeadline"></h2>
+							<div id="CreditsDiscplay"></div>
+							<br>
+							<button id="WeeklyCoins" onclick="WeeklyCoins()"></button>
+							<div id="overlay"></div>
+							<div id="popup">
+							<div id="overlay_content"></div>
 					</section>
 
 			</div>
@@ -58,10 +64,28 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script>
-				CheckTokenValidity()
-                createHeaderLinks("index");
+                CheckTokenValidity()
+                createHeaderLinks("credits");
                 createHeaderMessage();
                 createSiteTitle();
+
+				const getUrl = window.location;
+				const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
+
+				var posting = $.get(`${baseUrl}api/v1/coins`,{
+					Token: localStorage.getItem("token")
+				});
+
+				posting.done(function(data) {
+					$("#CreditsHeadline").text(`${translate('Credits.Headline')} ${data.name} (${data.email})`)
+					$("#WeeklyCoins").text(`${translate('Credits.WeeklyCoins')}`)
+					$("#CreditsDiscplay").html(`<div>Credits: ${data.credits.toFixed(0)}/${data.maxcoinscllowed.toFixed(0)}</div><div>Server Limit: ${data.serverLimit}</div>`)
+					
+				});
+
+				posting.fail(function(error) {
+					$("#CreditsDiscplay").text(translate('Credits.Errors.CommunicationError'))
+				});
 			</script>
 	</body>
 	</body>

@@ -9,10 +9,71 @@ const i18n = new I18n({
             Kunden: "Kunden",
             Ausloggen: "Ausloggen",
             Einloggen: "Einloggen",
+            Registrieren: "Registrieren",
+            Credits: "Credits"
           },
         },
         Startseite: {
 
+        },
+        Login: {
+          Form: {
+            FormUserLogin: "Login:",
+            Email: "E-Mail",
+            Passwort: "Passwort",
+            Submit: "Einloggen",
+            Errors: {
+              MissingField: " Feld muss ausgefüllt sein!",
+              WrongField: " Feld hat keinen gültigen Wert, bitte überprüfen!",
+              MinPassword: "Das Passwort braucht minderstens 10 Zeichen",
+              WrongPassword: "Der Nutzer existiert nicht oder das Passwort ist falsch"
+            }
+          }
+        },
+        Registrieren: {
+          Form: {
+            FormUserReg: "Registrierung:",
+            Email: "E-Mail",
+            Passwort: "Passwort",
+            RPasswort: "Passwort wiederholen",
+            Submit: "Registrieren",
+            Errors: {
+              PasswordMissmatch: "Passwörter stimmen nicht überein oder sind leer!",
+              MissingField: " Feld muss ausgefüllt sein!",
+              WrongField: " Feld hat keinen gültigen Wert, bitte überprüfen!",
+              MissingToken: "Dieser Host ist privat! Eine Regestrierung ist ohne Token nicht möglich. Bitte fragen Sie einen Admin.",
+              InvalidToken: "Der Token ist ungültig oder abgelaufen. Bitte fragen Sie einen Admin.",
+              ConfirmLegal: "Du musst die ABG und Datenschutzbestimmung akzeptierne.",
+              UserTaken: "Die Nutzer ID ist bereits vergeben."
+            }
+          }
+        },
+        Credits: {
+          Headline: "Status von",
+          WeeklyCoins: "Wöchentliche Credits",
+          CoinsPopup: "Du hast {{AddedCoins}} Credits bekommen.",
+          CoinsPopupErrors: {
+            LessThanAWeek: "Es sind noch keine 7 Tage vergangen, warte bis: {{TimeStamp}}",
+            TooManyRequests: "Bitte warte 15 Minuten.",
+            Database: "Fehler: 500 (Kontaktiere einen admin)"
+          },
+          Errors: {
+            CommunicationError: "Die Credits konnten nicht geladen werden..."
+          }
+        },
+        Kunden: {
+          Errors: {
+            CommunicationError: "Die Nutzer konnten nicht abgerufen werden..."
+          }
+        },
+        Tabeles: {
+          KundenListe: {
+            email: "E-Mail",
+            admin: "Admin",
+            panelid: "Panel ID",
+            coinsperweek: "Credits pro Woche",
+            maxcoins: "Max Credits"
+          }
         }
       }
     }

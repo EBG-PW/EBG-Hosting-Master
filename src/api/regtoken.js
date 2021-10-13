@@ -12,7 +12,7 @@ const PluginConfig = {
 };
 
 /* Plugin info */
-const PluginName = 'EBG-Hosting-WebLogin';
+const PluginName = 'EBG-Hosting-RegToken';
 const PluginRequirements = [];
 const PluginVersion = '0.0.1';
 const PluginAuthor = 'BolverBlitz';
@@ -31,19 +31,22 @@ const router = express.Router();
 
 router.post("/newtoken", limiter, async (reg, res, next) => {
     try {
-        const value = await TokenVerify.validateAsync(reg.query);
+        const value = await TokenCheck.validateAsync(reg.query);
         let source = reg.headers['user-agent']
         let para = {
             Browser: useragent.parse(source),
             IP: reg.headers['x-forwarded-for'] || reg.socket.remoteAddress
         }
-        TV.check(value.Token, para, true).then(function(Check) {  //API Token
-            if(Check.State)
-            let RegToken = randomstring.generate({
-                length: 8, //DO NOT CHANCE!!!
-                charset: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!'
-            });
-            //DB.write.regtoken.add(){}
+        Promise.all([TV.check(value.Token, para, true), TV.APIcheck(value.Token, 'Admin')])
+        .then(function(Check) {  //API Token
+            if(Check[0].State || Check[1].State){
+                let RegToken = randomstring.generate({
+                    length: 8, //DO NOT CHANCE!!!
+                    charset: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!'
+                });
+                console.log(RegToken)
+                //DB.write.regtoken.add(){}
+            }
         });
     } catch (error) {
         next(error);

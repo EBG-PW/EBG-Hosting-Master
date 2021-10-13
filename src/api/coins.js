@@ -64,23 +64,30 @@ router.get("/", limiter, async (reg, res, next) => {
                 DB.get.webtoken.get(value.Token).then(function(WebToken) {
                     DB.get.user.byMail(WebToken.rows[0].email).then(function(UserData) {
                         getPanelIDByEmail(WebToken.rows[0].email).then(function(PanelUserID) {
-                            panel.users.get(PanelUserID).then(function(DashbordUser) {
-                                res.status(200);
-                                res.json({
-                                    name: DashbordUser.name,
-                                    role: DashbordUser.role,
-                                    credits: DashbordUser.credits,
-                                    maxcoinscllowed: Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek),
-                                    serverLimit: DashbordUser.serverLimit,
-                                    email: DashbordUser.email
+                            if(Number(PanelUserID) !== 0){
+                                panel.users.get(PanelUserID).then(function(DashbordUser) {
+                                    res.status(200);
+                                    res.json({
+                                        name: DashbordUser.name,
+                                        role: DashbordUser.role,
+                                        credits: DashbordUser.credits,
+                                        maxcoinscllowed: Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek),
+                                        serverLimit: DashbordUser.serverLimit,
+                                        email: DashbordUser.email
+                                    });
+                                }).catch(function(error){
+                                    console.log(error)
+                                    res.status(500);
+                                    res.json({
+                                        message: "Databace error",
+                                    });
                                 });
-                            }).catch(function(error){
-                                console.log(error)
-                                res.status(500);
+                            }else{
+                                res.status(501);
                                 res.json({
-                                    message: "Databace error",
+                                    message: "User does not exist in panel",
                                 });
-                            });
+                            }
                         }).catch(function(error){
                             console.log(error)
                             res.status(500);
@@ -138,20 +145,27 @@ router.get("/weekly", hardlimiter, async (reg, res, next) => {
                             }else{
                                 DB.write.user.SetCurrentTimestamp('weeklycoins').then(function(TimeStamp_response) {
                                     getPanelIDByEmail(WebToken.rows[0].email).then(function(PanelUserID) {
-                                        panel.users.get(PanelUserID).then(function(DashbordUser) {
-                                            let AddCoinsSecure = 0;
-                                            let MaxCoinsAllowed = Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek)
-                                            if(Number(DashbordUser.data.credits) + Number(AddCoins) > Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek)){
-                                                AddCoinsSecure = (process.env.MaxAllowedCoins * UserData[0].coinsperweek) - DashbordUser.data.credits
-                                            }
-                                            DashbordUser.credits = DashbordUser.credits + AddCoinsSecure
-                                            panel.users.update(PanelUserID, DashbordUser).then(function(Panel_User_Update) {
-                                                res.status(200);
-                                                res.json({
-                                                    AddCoins, AddCoinsSecure, MaxCoinsAllowed
+                                        if(Number(PanelUserID) !== 0){
+                                            panel.users.get(PanelUserID).then(function(DashbordUser) {
+                                                let AddCoinsSecure = 0;
+                                                let MaxCoinsAllowed = Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek)
+                                                if(Number(DashbordUser.data.credits) + Number(AddCoins) > Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek)){
+                                                    AddCoinsSecure = (process.env.MaxAllowedCoins * UserData[0].coinsperweek) - DashbordUser.data.credits
+                                                }
+                                                DashbordUser.credits = DashbordUser.credits + AddCoinsSecure
+                                                panel.users.update(PanelUserID, DashbordUser).then(function(Panel_User_Update) {
+                                                    res.status(200);
+                                                    res.json({
+                                                        AddCoins, AddCoinsSecure, MaxCoinsAllowed
+                                                    });
                                                 });
                                             });
-                                        });
+                                        }else{
+                                            res.status(501);
+                                            res.json({
+                                                message: "User does not exist in panel",
+                                            });
+                                        }
                                     });
                                 }).catch(function(error){
                                     console.log(error)

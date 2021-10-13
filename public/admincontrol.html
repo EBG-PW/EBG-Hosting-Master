@@ -29,14 +29,18 @@
 				<!-- Main -->
 					<section id="main" class="wrapper">
 						<div class="inner">
-                            <h2 id="FormUserLogin"></h2>
-								<form method="post" id="LoginForm" action="#">
+                            <h2 id="FormCreateAPiToken"></h2>
+								<form method="post" id="APIToken" action="#">
 									<div class="row gtr-uniform">
-										<div class="col-8 col-12-xsmall">
-											<input type="text" name="email" id="email" value="" placeholder="" />
+										<div class="col-2 col-12-xsmall">
+                                            <select name="permission" id="permission">
+                                                <option value="Empty">- Auswahl -</option>
+                                                <option value="User">User</option>
+                                                <option value="Admin">Admin</option>
+                                            </select>
 										</div>
-										<div class="col-8 col-12-xsmall">
-											<input type="password" name="password" id="password" value="" placeholder="" />
+										<div class="col-10 col-12-xsmall">
+											<input type="text" name="api_token" id="api_token" value="" placeholder="" />
 										</div>
 										<div class="col-12">
 											<ul class="actions">
@@ -46,6 +50,11 @@
 									</div>
 								</form>
 								<div id="SubmitCallback"></div>
+						</div>
+					</section>
+					<section id="Tokens" class="wrapper">
+						<div class="inner">
+							<div id="APITokenListe"></div>
 						</div>
 					</section>
 
@@ -65,6 +74,7 @@
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/checkToken.js"></script>
 			<script src="assets/js/buttons.js"></script>
+			<script src="assets/js/table.js"></script>
             <script src="https://unpkg.com/new-i18n@3.0.0-5/lib/index.js"></script>
             <script src="assets/js/i18n.js"></script>
 			<script src="assets/js/BuildHTML.js"></script>
@@ -76,46 +86,60 @@
 			<script src="assets/js/main.js"></script>
 			<script>
 				CheckTokenValidity()
-                createHeaderLinks("login");
+                createHeaderLinks("admincontrol");
                 createHeaderMessage();
                 createSiteTitle();
 
-                /* Translate all Buttons and Boxes */
-                $("#FormUserLogin").html(translate('Login.Form.FormUserLogin'));
-                $("#password").attr("placeholder", (translate('Login.Form.Passwort')));
-                $("#email").attr("placeholder", (translate('Login.Form.Email')));
-                $("#Submit").attr("value", (translate('Login.Form.Submit')));
+				const getUrl = window.location;
+        		const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
 
-				$("#LoginForm").submit(function(event) {
+                /* Translate all Buttons and Boxes */
+                $("#FormCreateAPiToken").html(translate('AdminControl.Form.FormCreateAPiToken'));
+                $("#api_token").attr("placeholder", (translate('AdminControl.Form.TokenField')));
+				$("#Submit").attr("value", (translate('AdminControl.Form.Submit')));
+
+				function APITokensTable(){
+					let posting = $.get(`${baseUrl}api/v1/apitoken/getall`,{
+						Token: localStorage.getItem("token")
+					});
+
+					posting.done(function(data) {
+						for (let i = 0; i < data.Tokens.length; i++) {
+							data.Tokens[i].button_deletAPIToken = {
+								text: "❌",
+								style: "",
+								function: "delete_API_Token",
+								functionVar: data.Tokens[i].token,
+								Convert: false
+							}
+						}
+						$("#APITokenListe").html(ButtonCreateTable(['email', 'permissions', 'token' , 'button_deletAPIToken'], ['button_deletAPIToken'], data.Tokens, 'APITokenListe', true))
+					});
+
+					posting.fail(function(error) {
+						$("#APITokenListe").text(translate('AdminControl.APITokenError.Error'))
+					});
+				}
+
+				APITokensTable()
+				
+				$("#APIToken").submit(function(event) {
 						event.preventDefault();
 						var $form = $(this)
-						const getUrl = window.location;
-        				const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
 
-					if($('#password').val().length > 10){
-						var posting = $.post(`${baseUrl}api/v1/login/login`,{
-							Email: $('#email').val(),
-							Password: $('#password').val()
+						var posting = $.post(`${baseUrl}api/v1/apitoken/newtoken`,{
+                            Token: localStorage.getItem('token'),
+							Permission: $('#permission').val(),
 						});
 
 						posting.done(function(data) {
-							/* Write Token and Static data to localstorrage */
-							writeTokenDataToLocalStorrage(data)
-							createHeaderLinks("login");
-							const getUrl = window.location;
-      						const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
-							window.location.replace(`${baseUrl}credits.html`);
+                            $('#api_token').attr("value", data.ApiToken)
+							APITokensTable()
 						});
 
 						posting.fail(function(err) {
 							if(err.status == 401){
-								$('#SubmitCallback').text(translate('Login.Form.Errors.WrongPassword'));
-								$('#password').addClass("highlight");
-								$('#email').addClass("highlight");
-								setTimeout(function () {
-									$('#password').removeClass('highlight');
-									$('#email').removeClass('highlight');
-								}, 2000);
+								$('#SubmitCallback').text(translate('AdminControl.Form.Errors.NotEnothPermissions'));
 							}else{
 								let RespArr = err.responseJSON.message.split('"');
 								function jsUcfirst(string) 
@@ -141,14 +165,6 @@
 								}
 							}							
 						});
-
-					}else{
-						$('#SubmitCallback').text(translate('Login.Form.Errors.MinPassword'));
-						$('#password').addClass("highlight");
-						setTimeout(function () {
-							$('#password').removeClass('highlight');
-						}, 2000);
-					}
 				})
 			</script>
 	</body>

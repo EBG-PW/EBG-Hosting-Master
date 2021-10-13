@@ -1,5 +1,3 @@
-const { func } = require("joi");
-
 /**
  * Will send a logout request to destroy the current token
  * @returns {Promise}
@@ -66,6 +64,10 @@ function WeeklyCoins() {
 
     if(error.status == 500){
       $("#overlay_content").html(`<center><div>${translate('Credits.CoinsPopupErrors.Database')}</div><button style="bottom: 0; position: relative;" onclick="ExitOverlay(false)">Okay</button></center>`)
+    }
+
+    if(error.status === 501){
+      $("#overlay_content").text(translate('Credits.Errors.UserDoesNotExist'))
     }
 	});
        

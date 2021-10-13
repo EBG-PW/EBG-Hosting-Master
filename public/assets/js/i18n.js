@@ -10,7 +10,8 @@ const i18n = new I18n({
             Ausloggen: "Ausloggen",
             Einloggen: "Einloggen",
             Registrieren: "Registrieren",
-            Credits: "Credits"
+            Credits: "Credits",
+            AdminControl: "Admin Panel"
           },
         },
         Startseite: {
@@ -58,12 +59,29 @@ const i18n = new I18n({
             Database: "Fehler: 500 (Kontaktiere einen admin)"
           },
           Errors: {
-            CommunicationError: "Die Credits konnten nicht geladen werden..."
+            CommunicationError: "Die Credits konnten nicht geladen werden...",
+            UserDoesNotExist: "Es konnte kein Nutzer im Gamepanel gefunden werden!"
           }
         },
         Kunden: {
           Errors: {
             CommunicationError: "Die Nutzer konnten nicht abgerufen werden..."
+          }
+        },
+        AdminControl: {
+          APITokenError: {
+            Error: "Die Tokens konnten nicht geladen werden..."
+          },
+          Form: {
+            FormCreateAPiToken: "API Token erstellen:",
+            TokenField: "API Token wird hier erscheinen...",
+            Permission: "Rechte",
+            Submit: "Token Erstellen",
+            Errors: {
+              MissingField: " Feld muss ausgefüllt sein!",
+              WrongField: " Feld hat keinen gültigen Wert, bitte überprüfen!",
+              NotEnothPermissions: "Du hast keine Rechte dieses Token zu erstellen"
+            }
           }
         },
         Tabeles: {
@@ -73,6 +91,12 @@ const i18n = new I18n({
             panelid: "Panel ID",
             coinsperweek: "Credits pro Woche",
             maxcoins: "Max Credits"
+          },
+          APITokenListe: {
+            email: "E-Mail",
+            permissions: "Rechte",
+            token: "Token",
+            button_deletAPIToken: "Löschen"
           }
         }
       }

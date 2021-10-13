@@ -42,6 +42,7 @@ pool.query(`CREATE TABLE IF NOT EXISTS regtoken (
 pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
   token text PRIMARY KEY,
   email text,
+  permissions text,
   time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP)`, (err, result) => {
   if (err) {console.log(err)}
 });
@@ -225,6 +226,64 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
   });
 }
 
+/**
+ * This function will add an API key to apitoken table
+ * @param {string} token
+ * @param {string} email
+ * @param {string} permissions
+ * @returns {Promise}
+ */
+ let AddApiToken = function(token, email, permissions) {
+  return new Promise(function(resolve, reject) {
+    pool.query(`INSERT INTO apitoken(token, email, permissions) VALUES ($1,$2,$3)`,[
+      token, email, permissions
+    ], (err, result) => {
+      if (err) {reject(err)}
+        resolve(result);
+    });
+  });
+}
+
+/**
+ * This function is used to get a apitoken from the DB
+ * @param {String} token
+ * @returns {Promise}
+ */
+ let GetApiToken = function(token) {
+  return new Promise(function(resolve, reject) {
+    pool.query(`SELECT * FROM apitoken WHERE token = '${token}'`, (err, result) => {
+      if (err) {reject(err)}
+        resolve(result);
+    });
+  });
+}
+
+/**
+ * This function is used to get all apitokens from the DB
+ * @returns {Promise}
+ */
+ let GetAllApiToken = function() {
+  return new Promise(function(resolve, reject) {
+    pool.query(`SELECT * FROM apitoken`, (err, result) => {
+      if (err) {reject(err)}
+        resolve(result);
+    });
+  });
+}
+
+/**
+ * This function is used to delete a apitoken
+ * @param {String} token
+ * @returns {Promise}
+ */
+ let DelApiToken = function(token) {
+  return new Promise(function(resolve, reject) {
+    pool.query(`DELETE FROM apitoken WHERE token = '${token}'`, (err, result) => {
+      if (err) {reject(err)}
+        resolve(result);
+    });
+  });
+}
   let get = {
       user: {
         all: GetAllGuests,
@@ -236,6 +295,10 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
       },
       regtoken: {
         get: GetRegoken
+      },
+      apitoken: {
+        get: GetApiToken,
+        all: GetAllApiToken
       }
   }
 
@@ -249,6 +312,9 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
       },
       regtoken: {
         add: AddRegToken
+      },
+      apitoken: {
+        add: AddApiToken
       }
   }
 
@@ -257,7 +323,10 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
         delete: DelWebToken
       },
       regtoken: {
-        add: DelRegToken
+        delete: DelRegToken
+      },
+      apitoken: {
+        delete: DelApiToken
       }
   }
 

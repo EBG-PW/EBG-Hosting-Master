@@ -72,19 +72,24 @@
 				const getUrl = window.location;
 				const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
 
+				$("#WeeklyCoins").text(`${translate('Credits.WeeklyCoins')}`)
+
 				var posting = $.get(`${baseUrl}api/v1/coins`,{
 					Token: localStorage.getItem("token")
 				});
 
 				posting.done(function(data) {
 					$("#CreditsHeadline").text(`${translate('Credits.Headline')} ${data.name} (${data.email})`)
-					$("#WeeklyCoins").text(`${translate('Credits.WeeklyCoins')}`)
 					$("#CreditsDiscplay").html(`<div>Credits: ${data.credits.toFixed(0)}/${data.maxcoinscllowed.toFixed(0)}</div><div>Server Limit: ${data.serverLimit}</div>`)
 					
 				});
 
 				posting.fail(function(error) {
-					$("#CreditsDiscplay").text(translate('Credits.Errors.CommunicationError'))
+					if(error.status === 501){
+						$("#CreditsDiscplay").text(translate('Credits.Errors.UserDoesNotExist'))
+					}else{
+						$("#CreditsDiscplay").text(translate('Credits.Errors.CommunicationError'))
+					}
 				});
 			</script>
 	</body>

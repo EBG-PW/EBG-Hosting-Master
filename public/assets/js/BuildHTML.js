@@ -36,6 +36,12 @@ function createHeaderLinks(active) {
             }else{
                 HeaderHTML += `<li><a style="color: #00aa00;" href="kunden.html">${translate('Header.Links.Kunden')}</a></li>`
             }
+
+            if(active.toLowerCase() === "admincontrol".toLowerCase()){
+                HeaderHTML += `<li><a  href="admincontrol.html" class="active">${translate('Header.Links.AdminControl')}</a></li>`
+            }else{
+                HeaderHTML += `<li><a style="color: #00aa00;" href="admincontrol.html">${translate('Header.Links.AdminControl')}</a></li>`
+            }
         }
         
         if(active.toLocaleLowerCase() === "Registrieren".toLocaleLowerCase()){

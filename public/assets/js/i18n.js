@@ -198,6 +198,105 @@ const i18n = new I18n({
             button_deletAPIToken: "Delete"
           }
         }
+      },
+      it: {
+        Header: {
+          Links: {
+            Startseite: "Pagina principale",
+            FAQ: "FAQ",
+            Kunden: "Customers",
+            Ausloggen: "Esci",
+            Einloggen: "Accesso",
+            Registrieren: "Registrati",
+            Credits: "Crediti",
+            AdminControl: "Pannello Amministratore"
+          },
+        },
+        Startseite: {
+
+        },
+        Login: {
+          Form: {
+            FormUserLogin: "Login:",
+            Email: "E-Mail",
+            Passwort: "Password",
+            Submit: "Accesso",
+            Errors: {
+              MissingField: " Il campo deve essere compilato!",
+              WrongField: " Il campo non contiene un valore valido, si prega di controllare!",
+              MinPassword: "La password richiede almeno 10 caratteri",
+              WrongPassword: "L'utente non esiste o la password è incorretta"
+            }
+          }
+        },
+        Registrieren: {
+          Form: {
+            FormUserReg: "Registrazione:",
+            Email: "E-Mail",
+            Passwort: "Password",
+            RPasswort: "Recupero password",
+            Submit: "Registrazione",
+            Errors: {
+              PasswordMissmatch: "Le password non corrispondono o mancanti!",
+              MissingField: " Il campo deve essere compilato!",
+              WrongField: " Il campo non contiene un valore valido, si prega di controllare!",
+              MissingToken: "Questo host è privato! La registrazione non è possibile senza token. Si prega di chiedere a un amministratore.",
+              InvalidToken: "Il token non è valido o è scaduto. Si prega di chiedere a un amministratore.",
+              ConfirmLegal: "Devi accettare i Termini e Condizioni Generali e le norme sulla protezione dei dati.",
+              UserTaken: "L'ID utente è già stato assegnato."
+            }
+          }
+        },
+        Credits: {
+          Headline: "Lo stato di",
+          WeeklyCoins: "Weekly Credits",
+          CoinsPopup: "Hai {{AddedCoins}} Crediti.",
+          CoinsPopupErrors: {
+            LessThanAWeek: "Non sono ancora passati 7 giorni, aspettare fino a: {{TimeStamp}}",
+            TooManyRequests: "Si prega di attendere 15 minuti.",
+            Database: "Errore: 500 (Contattare un amministratore)"
+          },
+          Errors: {
+            CommunicationError: "Impossibile caricare i crediti ...",
+            UserDoesNotExist: "Nessun utente è stato trovato nel pannello di gioco!"
+          }
+        },
+        Kunden: {
+          Errors: {
+            CommunicationError: "Impossibile recuperare gli utenti ..."
+          }
+        },
+        AdminControl: {
+          APITokenError: {
+            Error: "Impossibile caricare i crediti ..."
+          },
+          Form: {
+            FormCreateAPiToken: "Crea un token API:",
+            TokenField: "Il token API apparirà qui ...",
+            Permission: "Autorizzazioni",
+            Submit: "Crea token",
+            Errors: {
+              MissingField: " Il campo deve essere compilato!",
+              WrongField: " Il campo non contiene un valore valido, si prega di controllare!",
+              NotEnothPermissions: "Non hai permessi per creare questo token"
+            }
+          }
+        },
+        Tabeles: {
+          KundenListe: {
+            email: "E-Mail",
+            admin: "Amministratore",
+            panelid: "ID pannello",
+            coinsperweek: "Crediti a settimana",
+            maxcoins: "Crediti massimi"
+          },
+          APITokenListe: {
+            email: "E-Mail",
+            permissions: "Autorizzazioni",
+            token: "Token",
+            button_deletAPIToken: "Cancella"
+          }
+        }
       }
     }
 });

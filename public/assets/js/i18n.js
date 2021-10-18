@@ -26,7 +26,7 @@ const i18n = new I18n({
             Errors: {
               MissingField: " Feld muss ausgefüllt sein!",
               WrongField: " Feld hat keinen gültigen Wert, bitte überprüfen!",
-              MinPassword: "Das Passwort braucht minderstens 10 Zeichen",
+              MinPassword: "Das Passwort braucht mindestens 10 Zeichen",
               WrongPassword: "Der Nutzer existiert nicht oder das Passwort ist falsch"
             }
           }
@@ -42,9 +42,9 @@ const i18n = new I18n({
               PasswordMissmatch: "Passwörter stimmen nicht überein oder sind leer!",
               MissingField: " Feld muss ausgefüllt sein!",
               WrongField: " Feld hat keinen gültigen Wert, bitte überprüfen!",
-              MissingToken: "Dieser Host ist privat! Eine Regestrierung ist ohne Token nicht möglich. Bitte fragen Sie einen Admin.",
+              MissingToken: "Dieser Host ist privat! Eine Registrierung ist ohne Token nicht möglich. Bitte fragen Sie einen Admin.",
               InvalidToken: "Der Token ist ungültig oder abgelaufen. Bitte fragen Sie einen Admin.",
-              ConfirmLegal: "Du musst die ABG und Datenschutzbestimmung akzeptierne.",
+              ConfirmLegal: "Du musst die AGB und Datenschutzbestimmung akzeptieren.",
               UserTaken: "Die Nutzer ID ist bereits vergeben."
             }
           }
@@ -80,7 +80,7 @@ const i18n = new I18n({
             Errors: {
               MissingField: " Feld muss ausgefüllt sein!",
               WrongField: " Feld hat keinen gültigen Wert, bitte überprüfen!",
-              NotEnothPermissions: "Du hast keine Rechte dieses Token zu erstellen"
+              NotEnothPermissions: "Du hast keine Rechte diesen Token zu erstellen"
             }
           }
         },

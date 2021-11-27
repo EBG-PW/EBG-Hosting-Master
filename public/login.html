@@ -55,7 +55,14 @@
 			<footer id="footer" class="wrapper alt">
 				<div class="inner">
 					<ul class="menu">
-						<li>&copy; Hosting-Manager by EBG.PW | All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li><a onclick="Show_Legal('AGB')">AGB</a></li><li><a onclick="Show_Legal('DAT')">Datenschutz</a></li><li><a onclick="Show_Legal('IMP')">Impressum</a></li>
+						<li>&copy; Hosting-Manager by EBG.PW | All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li><a id="Footer_AGB" onclick="Show_Legal('AGB')"></a></li><li><a id="Footer_DAT" onclick="Show_Legal('DAT')"></a></li><li><a id="Footer_IMP" onclick="Show_Legal('IMP')"></a></li>
+						<li>
+							<select id="countries" onchange='chanceLanguageEvent()' style="width:280px;">
+								<option value='de'>🇩🇪 German</option>
+								<option value='en'>🇬🇧 English</option>
+								<option value='it'>🇮🇹 Italian</option>
+							</select>
+						</li>
 					</ul>
 				</div>
 			</footer>
@@ -79,6 +86,7 @@
                 createHeaderLinks("login");
                 createHeaderMessage();
                 createSiteTitle();
+				translateFooter();
 
                 /* Translate all Buttons and Boxes */
                 $("#FormUserLogin").html(translate('Login.Form.FormUserLogin'));

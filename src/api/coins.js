@@ -62,32 +62,40 @@ router.get("/", limiter, async (reg, res, next) => {
         TV.check(value.Token, para, false).then(function(Check) {
             if(Check){
                 DB.get.webtoken.get(value.Token).then(function(WebToken) {
-                    DB.get.user.byMail(WebToken.rows[0].email).then(function(UserData) {
-                        getPanelIDByEmail(WebToken.rows[0].email).then(function(PanelUserID) {
-                            if(Number(PanelUserID) !== 0){
-                                panel.users.get(PanelUserID).then(function(DashbordUser) {
-                                    res.status(200);
-                                    res.json({
-                                        name: DashbordUser.name,
-                                        role: DashbordUser.role,
-                                        credits: DashbordUser.credits,
-                                        maxcoinscllowed: Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek),
-                                        serverLimit: DashbordUser.serverLimit,
-                                        email: DashbordUser.email
+                    if(WebToken.rows.length  === 1){
+                        DB.get.user.byMail(WebToken.rows[0].email).then(function(UserData) {
+                            getPanelIDByEmail(WebToken.rows[0].email).then(function(PanelUserID) {
+                                if(Number(PanelUserID) !== 0){
+                                    panel.users.get(PanelUserID).then(function(DashbordUser) {
+                                        res.status(200);
+                                        res.json({
+                                            name: DashbordUser.name,
+                                            role: DashbordUser.role,
+                                            credits: DashbordUser.credits,
+                                            maxcoinscllowed: Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek),
+                                            serverLimit: DashbordUser.serverLimit,
+                                            email: DashbordUser.email
+                                        });
+                                    }).catch(function(error){
+                                        console.log(error)
+                                        res.status(500);
+                                        res.json({
+                                            message: "Databace error",
+                                        });
                                     });
-                                }).catch(function(error){
-                                    console.log(error)
-                                    res.status(500);
+                                }else{
+                                    res.status(501);
                                     res.json({
-                                        message: "Databace error",
+                                        message: "User does not exist in panel",
                                     });
-                                });
-                            }else{
-                                res.status(501);
+                                }
+                            }).catch(function(error){
+                                console.log(error)
+                                res.status(500);
                                 res.json({
-                                    message: "User does not exist in panel",
+                                    message: "Databace error",
                                 });
-                            }
+                            });
                         }).catch(function(error){
                             console.log(error)
                             res.status(500);
@@ -95,13 +103,12 @@ router.get("/", limiter, async (reg, res, next) => {
                                 message: "Databace error",
                             });
                         });
-                    }).catch(function(error){
-                        console.log(error)
-                        res.status(500);
-                        res.json({
-                            message: "Databace error",
-                        });
-                    });
+                    }else{
+                        res.status(401);
+                            res.json({
+                                message: "Token was not found / invalid",
+                            });
+                    }
                 }).catch(function(error){
                     console.log(error)
                     res.status(500);
@@ -143,7 +150,7 @@ router.get("/weekly", hardlimiter, async (reg, res, next) => {
                                     Error: "Less than 50 Coins, try again later"
                                 });
                             }else{
-                                DB.write.user.SetCurrentTimestamp('weeklycoins').then(function(TimeStamp_response) {
+                                DB.write.user.SetCurrentTimestamp('weeklycoins', WebToken.rows[0].email).then(function(TimeStamp_response) {
                                     getPanelIDByEmail(WebToken.rows[0].email).then(function(PanelUserID) {
                                         if(Number(PanelUserID) !== 0){
                                             panel.users.get(PanelUserID).then(function(DashbordUser) {
@@ -151,12 +158,19 @@ router.get("/weekly", hardlimiter, async (reg, res, next) => {
                                                 let MaxCoinsAllowed = Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek)
                                                 if(Number(DashbordUser.data.credits) + Number(AddCoins) > Number(process.env.MaxAllowedCoins) * Number(UserData[0].coinsperweek)){
                                                     AddCoinsSecure = (process.env.MaxAllowedCoins * UserData[0].coinsperweek) - DashbordUser.data.credits
+                                                }else{
+                                                    AddCoinsSecure = (TimeDiff * UserData[0].coinsperweek).toFixed(0)
                                                 }
-                                                DashbordUser.credits = DashbordUser.credits + AddCoinsSecure
+                                                DashbordUser.credits = Number(DashbordUser.credits) + Number(AddCoinsSecure)
                                                 panel.users.update(PanelUserID, DashbordUser).then(function(Panel_User_Update) {
                                                     res.status(200);
                                                     res.json({
                                                         AddCoins, AddCoinsSecure, MaxCoinsAllowed
+                                                    });
+                                                }).catch(function(error){
+                                                    res.status(500);
+                                                    res.json({
+                                                        error
                                                     });
                                                 });
                                             });

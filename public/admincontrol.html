@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
@@ -18,14 +19,34 @@
 			<header id="header">
 				<a href="index.html" id="HeaderWelcome" class="title"></a>
 				<nav>
-					<ul id="LinksList">
-					</ul>
+					<ul id="LinksList"></ul>
 				</nav>
 			</header>
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-
+				<!-- Regtoken Generation -->
+				<section id="RegToken" class="wrapper style1-alt fade-u">
+					<div class="inner">
+						<h2 id="FormCreateRegToken"></h2>
+						<form method="post" id="RegToken" action="#">
+							<div class="row gtr-uniform">
+								<div class="col-2 col-12-xsmall">
+									<input type="text" name="coins_reg_token" id="coins_reg_token" value="" placeholder="" />
+								</div>
+								<div class="col-10 col-12-xsmall">
+									<input type="text" name="reg_token" id="reg_token" value="" placeholder="" />
+								</div>
+								<div class="col-12">
+									<ul class="actions">
+										<li><input type="submit" id="RegTokenSubmit" value="" class="primary" /></li>
+									</ul>
+								</div>
+							</div>
+						</form>
+						<div id="RegSubmitCallback"></div>
+					</div>
+				</section>
 				<!-- Main -->
 					<section id="main" class="wrapper">
 						<div class="inner">
@@ -33,11 +54,11 @@
 								<form method="post" id="APIToken" action="#">
 									<div class="row gtr-uniform">
 										<div class="col-2 col-12-xsmall">
-                                            <select name="permission" id="permission">
-                                                <option value="Empty">- Auswahl -</option>
-                                                <option value="User">User</option>
-                                                <option value="Admin">Admin</option>
-                                            </select>
+											<select name="permission" id="permission">
+												<option value="Empty">- Auswahl -</option>
+												<option value="User">User</option>
+												<option value="Admin">Admin</option>
+											</select>
 										</div>
 										<div class="col-10 col-12-xsmall">
 											<input type="text" name="api_token" id="api_token" value="" placeholder="" />
@@ -52,19 +73,26 @@
 								<div id="SubmitCallback"></div>
 						</div>
 					</section>
+				<!-- API Token List -->
 					<section id="Tokens" class="wrapper">
 						<div class="inner">
 							<div id="APITokenListe"></div>
 						</div>
 					</section>
-
 			</div>
 
 		<!-- Footer -->
 			<footer id="footer" class="wrapper alt">
 				<div class="inner">
 					<ul class="menu">
-						<li>&copy; Hosting-Manager by EBG.PW | All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li><a onclick="Show_Legal('AGB')">AGB</a></li><li><a onclick="Show_Legal('DAT')">Datenschutz</a></li><li><a onclick="Show_Legal('IMP')">Impressum</a></li>
+						<li>&copy; Hosting-Manager by EBG.PW | All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li><a id="Footer_AGB" onclick="Show_Legal('AGB')"></a></li><li><a id="Footer_DAT" onclick="Show_Legal('DAT')"></a></li><li><a id="Footer_IMP" onclick="Show_Legal('IMP')"></a></li>
+						<li>
+							<select id="countries" onchange='chanceLanguageEvent()' style="width:280px;">
+								<option value='de'>🇩🇪 German</option>
+								<option value='en'>🇬🇧 English</option>
+								<option value='it'>🇮🇹 Italian</option>
+							</select>
+						</li>
 					</ul>
 				</div>
 			</footer>
@@ -89,14 +117,21 @@
                 createHeaderLinks("admincontrol");
                 createHeaderMessage();
                 createSiteTitle();
+				translateFooter();
 
 				const getUrl = window.location;
         		const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
 
-                /* Translate all Buttons and Boxes */
+                /* Translate all Buttons and Boxes for API Token*/
                 $("#FormCreateAPiToken").html(translate('AdminControl.Form.FormCreateAPiToken'));
                 $("#api_token").attr("placeholder", (translate('AdminControl.Form.TokenField')));
 				$("#Submit").attr("value", (translate('AdminControl.Form.Submit')));
+
+				/* Translate all Buttons and Boxes for REG Token */
+				$("#FormCreateRegToken").html(translate('AdminControl.RegTokenForm.FormCreateREGToken'));
+				$("#reg_token").attr("placeholder", (translate('AdminControl.RegTokenForm.TokenField')));
+				$("#coins_reg_token").attr("placeholder", (translate('AdminControl.RegTokenForm.CreditAmount')));
+				$("#RegTokenSubmit").attr("value", (translate('AdminControl.RegTokenForm.Submit')));
 
 				function APITokensTable(){
 					let posting = $.get(`${baseUrl}api/v1/apitoken/getall`,{
@@ -134,6 +169,8 @@
 
 						posting.done(function(data) {
                             $('#api_token').attr("value", data.ApiToken)
+							navigator.clipboard.writeText(data.ApiToken)
+							$('#SubmitCallback').text(translate('AdminControl.Form.Succsess'));
 							APITokensTable()
 						});
 
@@ -163,7 +200,52 @@
 										$('#SubmitCallback').text(RespArr[1].replace(/"/g,'',) + translate('Login.Form.Errors.WrongField'));
 									}
 								}
-							}							
+							}
+						});
+				})
+
+				$("#RegToken").submit(function(event) {
+						event.preventDefault();
+						var $form = $(this)
+
+						var posting = $.post(`${baseUrl}api/v1/regtoken/newtoken`,{
+                            Token: localStorage.getItem('token'),
+							CoinsPerWeek: $('#coins_reg_token').val() || 0,
+						});
+
+						posting.done(function(data) {
+                            $('#reg_token').attr("value", data.RegToken)
+							navigator.clipboard.writeText(`${baseUrl}/registrieren.html?${data.RegToken}`)
+							$('#RegSubmitCallback').text(translate('AdminControl.RegTokenForm.Succsess'));
+						});
+
+						posting.fail(function(err) {
+							if(err.status == 401){
+								$('#RegSubmitCallback').text(translate('AdminControl.RegTokenForm.Errors.NotEnothPermissions'));
+							}else{
+								let RespArr = err.responseJSON.message.split('"');
+								function jsUcfirst(string) 
+								{
+									return string.charAt(0).toUpperCase() + string.slice(1);
+								}
+								console.log(RespArr[2].replace(/"/g,'',))
+								if(RespArr[2].replace(/"/g,'',) === " must be a number"){
+									if(RespArr[1].replace(/"/g,'',) === "CoinsPerWeek"){
+										$('#coins_reg_token').addClass("highlight");
+										setTimeout(function () {
+											$('#coins_reg_token').removeClass('highlight');
+										}, 2000);
+										$('#RegSubmitCallback').text(RespArr[1].replace(/"/g,'',) + translate('AdminControl.RegTokenForm.Errors.WrongField'));
+									}
+								}else if(RespArr[2].replace(/"/g,'',).includes('must be less than or equal to')){
+									let MaxCoins = RespArr[2].split(' ');
+									$('#coins_reg_token').addClass("highlight");
+									setTimeout(function () {
+										$('#coins_reg_token').removeClass('highlight');
+									}, 2000);
+									$('#RegSubmitCallback').text(translate('AdminControl.RegTokenForm.Errors.NumberTooHigh', {Limit: MaxCoins[MaxCoins.length - 1]}));
+								}
+							}
 						});
 				})
 			</script>

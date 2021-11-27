@@ -19,11 +19,16 @@ const PluginDocs = '';
 
 const limiter = rateLimit({
     windowMs: 60 * 1000 * 15,
-    max: 5
+    max: 50
 });
 
 const TokenVerify = Joi.object({
     Token: Joi.string().required()
+});
+
+const SetLang = Joi.object({
+    Token: Joi.string().required(),
+    Lang: Joi.string().required()
 });
 
 const router = express.Router();
@@ -58,6 +63,42 @@ router.get("/all", limiter, async (reg, res, next) => {
         next(error);
     }
 })
+
+router.post("/setLang", limiter, async (reg, res, next) => {
+    try {
+        const value = await SetLang.validateAsync(reg.body);
+        let source = reg.headers['user-agent']
+        let para = {
+            Browser: useragent.parse(source),
+            IP: reg.headers['x-forwarded-for'] || reg.socket.remoteAddress
+        }
+        TV.check(value.Token, para, false).then(function(Check) {  //API Token
+            if(Check.State){
+                Promise.all([DB.write.user.UpdateLang(value.Lang, Check.Data.email), DB.write.webtoken.UpdateLang(value.Lang, Check.Data.email)])
+                .then(function(Check) {
+                    res.status(200);
+                    res.json({
+                        Message: `Language chanced to ${value.Lang}`
+                    });
+                }).catch(function(error){
+                    res.status(500);
+                    res.json({
+                        Message: "Database Error"
+                    });
+                });
+            }else{
+                DB.del.webtoken.delete(value.Token).then(function(Check) {
+                    res.status(401);
+                    res.json({
+                        Message: "Token invalid"
+                    });
+                })
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+});
 
 module.exports = {
 	router: router,

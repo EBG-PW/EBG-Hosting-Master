@@ -1,0 +1,15 @@
+<h1> Imprint EBG.PW </h1>
+<h2 id = "m46"> Service provider </h2>
+<p> Jonas Heinz </p>
+<p> Sollachestraße 18 </p>
+<p> 85125 Enkering </p>
+<p> Germany </p>
+<h2 id = "m56"> Contact options </h2> <p> E-mail address: <a href="mailto:contact@ebg.pw"> contact@ebg.pw </a> </p>
+<p> Phone: +49 1579-2306227 </p>
+<h2 id = "m174"> Online dispute resolution (OS) </h2> <p> Online dispute resolution: The European Commission provides a platform for online dispute resolution (OS), which you can find at <a href = "https: //ec.europa.eu/consumers/odr/ "target =" _blank "> https://ec.europa.eu/consumers/odr/ </a>. Consumers have the opportunity to use this platform to settle their disputes. </p>
+<h2 id = "m65"> Liability and property rights information </h2> <p> <strong> Disclaimer </strong>: The content of this online offer was created carefully and according to our current state of knowledge, but is for information only and does not develop any legal information binding effect, unless it is a matter of legally binding information (e.g. the imprint, the data protection declaration, terms and conditions or binding instructions for consumers). We reserve the right to change or delete the content in whole or in part, provided that contractual obligations remain unaffected. All offers are non-binding. </p>
+<p> <strong> Links to external websites </strong>: The content of external websites to which we refer directly or indirectly are outside our area of ​​responsibility and we do not adopt them as our own. We are not responsible for any content or disadvantages resulting from the use of the information available on the linked websites. </p>
+<p> <strong> Copyrights and trademark rights </strong>: All content presented on this website, such as texts, photographs, graphics, brands and trademarks are protected by the respective property rights (copyrights, trademark rights). The use, reproduction, etc. are subject to our rights or the rights of the respective authors or rights holders. </p>
+<p> <strong> Notes on legal violations </strong>: Should you notice any legal violations on our website, we ask you to point this out to us. We will remove illegal content and links immediately after we become aware of them. </p>
+<p>Adapted and translated by the website owner (Vom Websiteinhaber angepasst und überstzt):</p>
+<p class = "seal"> <a href = "https://datenschutz-generator.de/?l=de" title = "Legal text by Dr. Schwenke - please click for further information." target = "_ blank" rel = "noopener noreferrer nofollow"> Created with free Datenschutz-Generator.de by Dr. Thomas Schwenke </a> </p>

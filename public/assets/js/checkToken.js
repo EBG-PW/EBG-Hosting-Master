@@ -17,7 +17,9 @@
         posting.fail(function(err) {
           if(err.status === 401){
             clearLocalStorrage()
-            location.reload(true); 
+            const getUrl = window.location;
+      			const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
+						window.location.replace(`${baseUrl}index.html`);
           }
         });
       }else{

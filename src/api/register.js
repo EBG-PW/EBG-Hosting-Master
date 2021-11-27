@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit');
 const Joi = require('joi');
 const DB = require('../lib/postgres');
 const bcrypt = require('bcrypt');
+const ControlPanelAPI = require('../lib/controlpanel_api')
 
 const PluginConfig = {
 };
@@ -21,8 +22,9 @@ const limiter = rateLimit({
 });
 
 const NewUserReg = Joi.object({
-    Email: Joi.string().email().required(),
-    Password: Joi.string().required(),
+    Name: Joi.string().required().min(4).max(20),
+    Email: Joi.string().email().required().max(32),
+    Password: Joi.string().required().min(8).max(50),
     RegToken: Joi.string().required(),
     Lang: Joi.string().required().max(2),
     LegalAccepted: Joi.boolean().required()
@@ -44,13 +46,30 @@ router.post("/register", limiter, async (reg, res, next) => {
                     let DBTime = new Date(RegToken_response.rows[0].time).getTime()+parseInt(process.env.RegTokenDurationH)*60*60*1000
                     if(DBTime > new Date().getTime()){
                         bcrypt.hash(value.Password, parseInt(process.env.SaltRounds), function(err, hash) {
-                            DB.write.user.new(value.Email, hash, RegToken_response.rows[0].coinsperweek, value.Lang).then(function(NewUser_response) {
-                                res.status(200);
-                                res.json({
-                                    Message: 'Succsess'
+                            Promise.all([DB.del.regtoken.delete(value.RegToken), DB.write.user.new(value.Email, hash, RegToken_response.rows[0].coinsperweek, value.Lang)])
+                            .then(function(Del_And_NewUser_Response) {
+                                ControlPanelAPI.RegisterNewUser(value.Name, value.Password, value.Email).then(function(NewUser) {
+                                    ControlPanelAPI.IncreseUserCreds(RegToken_response.rows[0].coinsperweek, NewUser.id).then(function(UserCreds) {
+                                        res.status(200);
+                                        res.json({
+                                            Message: 'Succsess'
+                                        });
+                                    }).catch(function(error){
+                                        console.log(error)
+                                        res.status(500);
+                                        res.json({
+                                          message: "User Increese Creds Error",
+                                        });
+                                    });
+                                }).catch(function(error){
+                                    console.log(error)
+                                    res.status(500);
+                                    res.json({
+                                      message: "User Create Error",
+                                    });
                                 });
-                                
                             }).catch(function(error){
+                                console.log(error)
                                 if(error.detail.includes('Key')){
                                     res.status(423)
                                     res.json({
@@ -65,9 +84,12 @@ router.post("/register", limiter, async (reg, res, next) => {
                             });
                         });
                     }else{
-                        res.status(401);
-                        res.json({
-                            Message: 'RegToken not found or too old'
+                        DB.del.regtoken.delete(value.RegToken) //Clean unused tokens
+                        .then(function(DeleteResponse) {
+                            res.status(401);
+                            res.json({
+                                Message: 'RegToken not found or too old'
+                            });
                         });
                     }
                 }else{

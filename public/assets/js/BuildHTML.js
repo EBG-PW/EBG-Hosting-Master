@@ -74,7 +74,7 @@ function createHeaderLinks(active) {
 
 /**
  * Will create the web title
- * @returns {Promise}
+ * @returns {string}
  */
  function createSiteTitle() {
     let SofwareName = "EBG-Hosting" //Chance this if your event has a diffrent Name
@@ -91,4 +91,10 @@ function createHeaderLinks(active) {
  function CentToEuro(value){
     var euro = value / 100;
     return euro.toLocaleString("de-De", {style:"currency", currency:"EUR"});
+}
+
+function translateFooter() {
+    $("#Footer_AGB").text(translate("Footer.AGB"));
+    $("#Footer_DAT").text(translate("Footer.Datenschutz"));
+    $("#Footer_IMP").text(translate("Footer.Impressum"));
 }

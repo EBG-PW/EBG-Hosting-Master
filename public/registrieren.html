@@ -33,6 +33,9 @@
 								<form method="post" id="RegForm" action="#">
 									<div class="row gtr-uniform">
 										<div class="col-8 col-12-xsmall">
+											<input type="text" name="name" id="name" value="" placeholder="" />
+										</div>
+										<div class="col-8 col-12-xsmall">
 											<input type="text" name="email" id="email" value="" placeholder="" />
 										</div>
 										<div class="col-8 col-12-xsmall">
@@ -43,7 +46,7 @@
 										</div>
 										<div id="CheckBoxHi" class="col-6 col-12-small">
 											<input type="checkbox" id="lastCheck" name="lastCheck">
-											<label for="lastCheck">Ich akzeptiere die <a onclick="Show_Legal('AGB')">AGB</a> und <a onclick="Show_Legal('DAT')">Datenschutz</a>!</label>
+											<label style="white-space: nowrap;" for="lastCheck"><div id="LegaleOne"></label>
 										</div><br>										
 										<div class="col-12">
 											<ul class="actions">
@@ -62,7 +65,14 @@
 			<footer id="footer" class="wrapper alt">
 				<div class="inner">
 					<ul class="menu">
-						<li>&copy; Hosting-Manager by EBG.PW | All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li><a onclick="Show_Legal('AGB')">AGB</a></li><li><a onclick="Show_Legal('DAT')">Datenschutz</a></li><li><a onclick="Show_Legal('IMP')">Impressum</a></li>
+						<li>&copy; Hosting-Manager by EBG.PW | All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li><a id="Footer_AGB" onclick="Show_Legal('AGB')"></a></li><li><a id="Footer_DAT" onclick="Show_Legal('DAT')"></a></li><li><a id="Footer_IMP" onclick="Show_Legal('IMP')"></a></li>
+						<li>
+							<select id="countries" onchange='chanceLanguageEvent()' style="width:280px;">
+								<option value='de'>🇩🇪 German</option>
+								<option value='en'>🇬🇧 English</option>
+								<option value='it'>🇮🇹 Italian</option>
+							</select>
+						</li>
 					</ul>
 				</div>
 			</footer>
@@ -86,12 +96,15 @@
                 createHeaderLinks("Registrieren");
                 createHeaderMessage();
                 createSiteTitle();
+				translateFooter();
 
                 /* Translate all Buttons and Boxes */
                 $("#FormUserReg").html(translate('Registrieren.Form.FormUserReg'));
                 $("#password").attr("placeholder", (translate('Registrieren.Form.Passwort')));
 				$("#rpassword").attr("placeholder", (translate('Registrieren.Form.RPasswort')));
+				$("#name").attr("placeholder", (translate('Registrieren.Form.Name')));
                 $("#email").attr("placeholder", (translate('Registrieren.Form.Email')));
+				$("#LegaleOne").html(translate('Registrieren.Form.LegalOne'));
                 $("#Submit").attr("value", (translate('Registrieren.Form.Submit')));
 
 				$("#RegForm").submit(function(event) {
@@ -101,7 +114,7 @@
         				const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
 						const OrderIDFromUrl = getUrl.search.split("?").join("") //Get RegToken from URL
 
-					if($('#password').val() === $('#rpassword').val() && $('#password').val().length > 10){
+					if($('#password').val() === $('#rpassword').val() && $('#password').val().length > 9){
 						if($('#lastCheck').is(':checked') === false){
 							$('#result').text(translate('Registrieren.Form.Error.ConfirmLegal'));
 							$('#CheckBoxHi').addClass("highlight");
@@ -110,6 +123,7 @@
 							}, 2000);
 						}else{
 							var posting = $.post(`${baseUrl}api/v1/register/register`,{
+								Name: $('#name').val(),
 								Email: $('#email').val(),
 								Password: $('#password').val(),
 								RegToken: OrderIDFromUrl,
@@ -141,9 +155,22 @@
 										}, 2000);
 										$('#SubmitCallback').text(RespArr[1].replace(/"/g,'',) + translate('Registrieren.Form.Errors.MissingField'));
 									}
+									if(RespArr[1].replace(/"/g,'',) === "Name"){
+										$('#name').addClass("highlight");
+										setTimeout(function () {
+											$('#name').removeClass('highlight');
+										}, 2000);
+										$('#SubmitCallback').text(RespArr[1].replace(/"/g,'',) + translate('Registrieren.Form.Errors.MissingField'));
+									}
 									if(RespArr[1].replace(/"/g,'',) === "RegToken"){
 										$('#SubmitCallback').text(translate('Registrieren.Form.Errors.MissingToken'));
 									}
+								}else if(RespArr[2].replace(/"/g,'',).includes('must be less than or equal to')){
+									$('#email').addClass("highlight");
+									setTimeout(function () {
+										$('#email').removeClass('highlight');
+									}, 2000);
+									$('#SubmitCallback').text(translate('Registrieren.Form.Errors.WrongField'));
 								}else if(RespArr[2].replace(/"/g,'',) === " must be a valid email"){
 									if(RespArr[1].replace(/"/g,'',) === "Email"){
 										$('#email').addClass("highlight");

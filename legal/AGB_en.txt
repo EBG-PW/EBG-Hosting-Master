@@ -1,0 +1,27 @@
+<h1> General Terms and Conditions </h1>
+<br>
+<h2> Preface </h2>
+§1 Validity towards companys and definition of terms (1) The following general terms and conditions apply to all deliveries between us and a consumer or company in the version valid at the time of the order. <br>
+A consumer is any natural person who concludes a legal transaction for purposes that are predominantly neither commercial nor their independent professional activity (§ 13 BGB). <br> <br>
+We, <a href="Impressum.html"> EBG.PW </a>, offer users free automated services. If the user books a server free of charge, he accepts the following conditions: <br> <br>
+<h2> 1. Right to the service </h2>
+The user has no right or entitlement to his service because the service is provided free of charge. In order to prevent abuse, the user has to extend his services once every 7 days, otherwise these will be automatically paused and deleted after 60 days.
+<br> <br> <h2> 2. Number of services </h2>
+The user can use multiple services, these require coins that can be obtained free of charge.
+<br> <br> <h2> 3. Support </h2>
+We endeavor to ensure that support is available and good. However, the user has no right to get support. Legal inquiries can be sent by email to support@ebg.pw.
+<br> <br> <h2> 4. User account </h2>
+In order to use a service, the creation of a user account is mandatory. A maximum of one account is allowed to be created per person. To create an account, the user must have reached the age of 16. If the user is a minor, we assume the consent of the legal guardian. They can revoke their conditional consent by emailing support@ebg.pw. By creating a user account, the user confirms that they have reached the age. If support@ebg.pw learns that a user has not reached the age of 16, the user will be blocked immediately and their data will be deleted.
+<br> <br> <h2> 5. User obligations </h2>
+<p> <b> (1) </b> The user undertakes to secure, maintain and moderate his server in accordance with current technical standards. A service may not be used for commercial activities. </p>
+<p> <b> (2) </b> The user may only use the server for the specified purpose (e.g. a Minecraft server). Uploading a so-called "custom jar" for the purpose of using the service for another purpose is prohibited. </p>
+<p> <b> (3) </b> The user is not permitted to use software that creates an excessive disproportionate load on the server hardware or simulates players in order to prevent the service from being shut down automatically. (certain mods / plugins, miners, etc.). Upon acknowledgment, we will immediately block the user and reserve the right to take further steps. </p>
+<p> <b> (4) </b> The user is fully liable for the content of the server. These must comply with these terms and conditions, the laws of the Federal Republic of Germany and, if applicable, the laws of the user's country of residence. </p>
+<p> <b> (5) </b> The user is responsible for the data backup of his free of charge services </p>
+<h2> 6. Backup and general data: </h2>
+Data from <a href="Impressum.html"> EBG.PW </a> are fundamentaly stored on independent disks, which are located in a redundant array of independent disks. Property claims on the data stored on <a href="Impressum.html">EBG.PW </a> systems is excluded at any time. <br>
+<a href="Impressum.html"> EBG.PW </a> creates data backups on a voluntary basis and stores them according to a 3-2-1 data backup principle. <br>
+Ownership or general claims to these data backups are excluded at any time.
+<h2>7. Rights of <a href="Impressum.html">EBG.PW</a></h2>
+<a href="Impressum.html"> EBG.PW </a> reserves the right to lock an active service without giving reasons and with immediate effect. The user will be informed immediately of the reason. <a href="Impressum.html"> EBG.PW </a> may furthermore discontinue its services at any time without giving any reason. <br> <br>
+<a href="Impressum.html"> EBG.PW </a> reserves the right to change these terms and conditions. Users will be notified by email.

@@ -36,6 +36,11 @@ const NewToken = Joi.object({
     Permission: Joi.string().required()
 });
 
+const TokenDelete = Joi.object({
+    Token: Joi.string().required(),
+    TokenDelete: Joi.string().required()
+});
+
 const router = express.Router();
 
 router.post("/newtoken", hardlimiter, async (reg, res, next) => {
@@ -118,7 +123,7 @@ router.get("/getall", limiter, async (reg, res, next) => {
 
 router.post("/deltoken", limiter, async (reg, res, next) => {
     try {
-        const value = await TokenCheck.validateAsync(reg.body);
+        const value = await TokenDelete.validateAsync(reg.body);
         let source = reg.headers['user-agent']
         let para = {
             Browser: useragent.parse(source),
@@ -127,15 +132,22 @@ router.post("/deltoken", limiter, async (reg, res, next) => {
         Promise.all([TV.check(value.Token, para, true), TV.APIcheck(value.Token, 'Admin')])
         .then(function(Check) {  //API Token
             if(Check[0].State || Check[1].State){
-                DB.del.apitoken.delete(value.Token).then(function(Check) {
-                    res.status(200);
-                    res.json({
-                        Message: "Sucsess"
-                    });
+                DB.del.apitoken.delete(value.TokenDelete).then(function(Del_Token_Response) {
+                    if(Del_Token_Response.rowCount === 1){
+                        res.status(200);
+                        res.json({
+                            Message: "Sucsess"
+                        });
+                    }else{
+                        res.status(500);
+                        res.json({
+                            Message: "No Token to delete"
+                        });
+                    }
                 })
             }else{
                 DB.del.webtoken.delete(value.Token).then(function(Check) {
-                    res.apitoken(401);
+                    res.status(401);
                     res.json({
                         Message: "Token invalid"
                     });

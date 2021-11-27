@@ -5,8 +5,11 @@ const fs = require("fs");
 const Joi = require('joi');
 
 const AGB_DE = fs.readFileSync(`./legal/AGB_de.txt`, "utf-8");
+let AGB_EN = fs.readFileSync(`./legal/AGB_en.txt`, "utf-8");
 const DAT_DE = fs.readFileSync(`./legal/Datenschutz_de.txt`, "utf-8");
+const DAT_EN = fs.readFileSync(`./legal/Datenschutz_en.txt`, "utf-8");
 const IMP_DE = fs.readFileSync(`./legal/Impressum_de.txt`, "utf-8");
+const IMP_EN = fs.readFileSync(`./legal/Impressum_en.txt`, "utf-8");
 
 const PluginConfig = {
 };
@@ -34,7 +37,6 @@ const router = express.Router();
 router.get('/', limiter, async (reg, res, next) => {
 	try {
 		const value = await Legal.validateAsync(reg.query);
-
         if(value.Language.toLowerCase() === 'de'){
             if(value.Document.toLowerCase() === 'agb'){
                 res.status(200);
@@ -63,8 +65,62 @@ router.get('/', limiter, async (reg, res, next) => {
                     Error: "Not Found"
                 });
             }
+        }else if(value.Language.toLowerCase() === 'en'){
+            if(value.Document.toLowerCase() === 'agb'){
+                res.status(200);
+                if(value.ReturnURL){
+                    res.send(`<a href=${value.ReturnURL}><-- Back</a><br>${AGB_EN.replace(/Impressum.html/g, `${value.ReturnURL}api/v1/legal?ReturnURL=${value.ReturnURL}&Language=${value.Language}&Document=IMP`)}`);
+                }else{
+                    res.send(`${AGB_EN}`);
+                }
+            }else if(value.Document.toLowerCase() === 'imp'){
+                res.status(200);
+                if(value.ReturnURL){
+                    res.send(`<a href=${value.ReturnURL}><-- Back</a><br>${IMP_EN}`);
+                }else{
+                    res.send(`${IMP_EN}`);
+                }
+            }else if(value.Document.toLowerCase() === 'dat'){
+                res.status(200);
+                if(value.ReturnURL){
+                    res.send(`<a href=${value.ReturnURL}><-- Back</a><br>${DAT_EN}`);
+                }else{
+                    res.send(`${DAT_EN}`);
+                }
+            }else{
+                res.status(400);
+                res.json({
+                    Error: "Not Found"
+                });
+            }
         }else{
-
+            if(value.Document.toLowerCase() === 'agb'){
+                res.status(200);
+                if(value.ReturnURL){
+                    res.send(`<a href=${value.ReturnURL}><-- Back</a><br>${AGB_EN.replace(/Impressum.html/g, `${value.ReturnURL}api/v1/legal?ReturnURL=${value.ReturnURL}&Language=${value.Language}&Document=IMP`)}`);
+                }else{
+                    res.send(`${AGB_EN}`);
+                }
+            }else if(value.Document.toLowerCase() === 'imp'){
+                res.status(200);
+                if(value.ReturnURL){
+                    res.send(`<a href=${value.ReturnURL}><-- Back</a><br>${IMP_EN}`);
+                }else{
+                    res.send(`${IMP_EN}`);
+                }
+            }else if(value.Document.toLowerCase() === 'dat'){
+                res.status(200);
+                if(value.ReturnURL){
+                    res.send(`<a href=${value.ReturnURL}><-- Back</a><br>${DAT_EN}`);
+                }else{
+                    res.send(`${DAT_EN}`);
+                }
+            }else{
+                res.status(400);
+                res.json({
+                    Error: "Not Found"
+                });
+            }
         }
         
     } catch (error) {

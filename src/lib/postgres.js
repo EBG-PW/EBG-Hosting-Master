@@ -35,6 +35,7 @@ pool.query(`CREATE TABLE IF NOT EXISTS webtoken (
 pool.query(`CREATE TABLE IF NOT EXISTS regtoken (
   token text PRIMARY KEY,
   coinsperweek bigint DEFAULT 0,
+  emailofcreator text,
   time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP)`, (err, result) => {
   if (err) {console.log(err)}
 });
@@ -99,13 +100,14 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
 /**
  * This function will set the cullom to current timestamp
  * @param {String} cullom
+ * @param {String} email
  * @returns {boolean}
  */
- let UpdateTimeStamp = function(cullom) {
+ let UpdateTimeStamp = function(cullom, email) {
   return new Promise(function(resolve, reject) {
     let newDate = new Date(Date.now());
-    pool.query(`UPDATE uuser SET ${cullom} = $1`,[
-      newDate
+    pool.query(`UPDATE uuser SET ${cullom} = $1 WHERE email = $2`,[
+      newDate, email
     ], (err, result) => {
       if (err) {reject(err)}
       resolve(result)
@@ -131,6 +133,40 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
       });
     });
   }
+
+/**
+ * This function will update a users language
+ * @param {String} lang
+ * @param {String} email
+ * @returns {Promise}
+ */
+ let UpdateUserLang = function(lang, email) {
+  return new Promise(function(resolve, reject) {
+    pool.query(`UPDATE uuser SET lang = $1 WHERE email = $2`,[
+      lang, email
+    ], (err, result) => {
+      if (err) {reject(err)}
+      resolve(result)
+    });
+  });
+}
+
+/**
+ * This function will update a users language in webtokens
+ * @param {String} lang
+ * @param {String} email
+ * @returns {Promise}
+ */
+ let UpdateUserLangWebToken = function(lang, email) {
+  return new Promise(function(resolve, reject) {
+    pool.query(`UPDATE webtoken SET lang = $1 WHERE email = $2`,[
+      lang, email
+    ], (err, result) => {
+      if (err) {reject(err)}
+      resolve(result)
+    });
+  });
+}
 
 /**
  * This function will add a bought product to webtokens
@@ -185,12 +221,13 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
  * This function will add a bought product to regtoken
  * @param {string} token
  * @param {number} coinsperweek
+ * @param {string} emailofcreator
  * @returns {Promise}
  */
- let AddRegToken = function(token, coinsperweek) {
+ let AddRegToken = function(token, coinsperweek, emailofcreator) {
   return new Promise(function(resolve, reject) {
-    pool.query(`INSERT INTO regtoken(token, coinsperweek) VALUES ($1,$2)`,[
-      token, coinsperweek
+    pool.query(`INSERT INTO regtoken(token, coinsperweek, emailofcreator) VALUES ($1,$2,$3)`,[
+      token, coinsperweek, emailofcreator
     ], (err, result) => {
       if (err) {reject(err)}
         resolve(result);
@@ -206,6 +243,19 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
  let GetRegoken = function(token) {
   return new Promise(function(resolve, reject) {
     pool.query(`SELECT * FROM regtoken WHERE token = '${token}'`, (err, result) => {
+      if (err) {reject(err)}
+        resolve(result);
+    });
+  });
+}
+
+/**
+ * This function is used to get all regtoken from the DB
+ * @returns {Promise}
+ */
+ let GetAllRegoken = function() {
+  return new Promise(function(resolve, reject) {
+    pool.query(`SELECT * FROM regtoken`, (err, result) => {
       if (err) {reject(err)}
         resolve(result);
     });
@@ -294,7 +344,8 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
         get: GetWebToken
       },
       regtoken: {
-        get: GetRegoken
+        get: GetRegoken,
+        all: GetAllRegoken
       },
       apitoken: {
         get: GetApiToken,
@@ -305,10 +356,12 @@ pool.query(`CREATE TABLE IF NOT EXISTS apitoken (
   let write = {
       user: {
         new: WriteNewUser,
-        SetCurrentTimestamp: UpdateTimeStamp
+        SetCurrentTimestamp: UpdateTimeStamp,
+        UpdateLang: UpdateUserLang
       },
       webtoken: {
-         add: AddWebToken
+         add: AddWebToken,
+         UpdateLang: UpdateUserLangWebToken
       },
       regtoken: {
         add: AddRegToken

@@ -48,7 +48,7 @@ function WeeklyCoins() {
 	});
 
 	posting.done(function(data) {
-		$("#overlay_content").html(`<center><div>${translate('Credits.CoinsPopup', {AddedCoins: data.AddCoinsSecure.toFixed(0)})}</div><button style="bottom: 0; position: relative;" onclick="ExitOverlay(true)">Okay</button></center>`)
+		$("#overlay_content").html(`<center><div>${translate('Credits.CoinsPopup', {AddedCoins: Number(Number(data.AddCoinsSecure).toFixed(0))})}</div><button style="bottom: 0; position: relative;" onclick="ExitOverlay(true)">Okay</button></center>`)
 					
 	});
 
@@ -85,4 +85,49 @@ function ExitOverlay(reload) {
   if(reload) {
     location.reload(); 
   }
+}
+
+/**
+ * Will send API Request to telete API Token
+ * @param {String} token 
+ */
+function delete_API_Token(token){
+  const getUrl = window.location;
+	const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
+
+  var posting = $.post(`${baseUrl}api/v1/apitoken/deltoken`,{
+		Token: localStorage.getItem("token"),
+    TokenDelete: token
+	});
+
+	posting.done(function(data) {
+		let posting = $.get(`${baseUrl}api/v1/apitoken/getall`,{
+      Token: localStorage.getItem("token")
+    });
+
+    posting.done(function(data) {
+      for (let i = 0; i < data.Tokens.length; i++) {
+        data.Tokens[i].button_deletAPIToken = {
+          text: "❌",
+          style: "",
+          function: "delete_API_Token",
+          functionVar: data.Tokens[i].token,
+          Convert: false
+        }
+      }
+      $("#APITokenListe").html(ButtonCreateTable(['email', 'permissions', 'token' , 'button_deletAPIToken'], ['button_deletAPIToken'], data.Tokens, 'APITokenListe', true))
+    });
+
+    posting.fail(function(error) {
+      $("#APITokenListe").text(translate('AdminControl.APITokenError.Error'))
+    });
+	});
+
+	posting.fail(function(error) {
+    if(error.status == 401){
+      alert(translate('AdminControl.APITokenDelete.NotEnothPermissions'))
+    }else{
+      alert("Error: No Handle :( Maybe look into raw API return")
+    }
+  });
 }

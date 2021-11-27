@@ -2,19 +2,19 @@ API Routes:
 All API routes are avaible under /api/v1  
   
 Regtoken:  
-| Path  | Permissions | Authentication| Parameters |
-| ------------- | ------------- | ------------- | ------------- |
-| /regtoken/newtoken  | Admin  | Token | CoinsPerWeek |
-| /regtoken/getall  | Admin  | Token | - |
-| /regtoken/getprices | Everyone | None | - |
-| /regtoken/calprices | Everyone | None | CPU, RAM, DISK, Backup |
+| Methode | Path  | Permissions | Authentication| Parameters |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| POST | /regtoken/newtoken  | Admin  | Token | CoinsPerWeek |
+| GET | /regtoken/getall  | Admin  | Token | - |
+| GET | /regtoken/getprices | Everyone | None | - |
+| GET | /regtoken/calprices | Everyone | None | CPU, RAM, DISK, Backup |
 
 Apitoken:  
-| Path  | Permissions | Authentication| Parameters |
-| ------------- | ------------- | ------------- | ------------- |
-| /apitoken/newtoken  | Admin  | Token | Permission |
-| /apitoken/deltoken  | Admin  | Token | Token |
-| /apitoken/getall  | Admin  | Token | - |
+| Methode | Path  | Permissions | Authentication| Parameters |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| POST | /apitoken/newtoken  | Admin  | Token | Permission |
+| POST | /apitoken/deltoken  | Admin  | Token | Token |
+| GET | /apitoken/getall  | Admin  | Token | - |
 
 
 Template used:  

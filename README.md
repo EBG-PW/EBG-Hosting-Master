@@ -7,7 +7,7 @@ Regtoken:
 | POST | /regtoken/newtoken  | Admin  | Token | CoinsPerWeek |
 | GET | /regtoken/getall  | Admin  | Token | - |
 | GET | /regtoken/getprices | Everyone | None | - |
-| GET | /regtoken/calprices | Everyone | None | CPU, RAM, DISK, Backup |
+| GET | /regtoken/calprices | Everyone | None | CPU, MEM, DISK, Backup |
 
 Apitoken:  
 | Methode | Path  | Permissions | Authentication| Parameters |

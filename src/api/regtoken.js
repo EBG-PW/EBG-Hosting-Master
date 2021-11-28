@@ -148,7 +148,7 @@ router.get("/calprices", limiter, async (reg, res, next) => {
         const value = await CalHardwareCheck.validateAsync(reg.query)
         const [CPUP, MEMP, DISKP, BackupsP] = [Number(process.env.CPUCost), Number(process.env.MEMCost), Number(process.env.DISKCost), Number(process.env.BackupCost)]
         console.log(CPUP, MEMP, DISKP, BackupsP)
-        let Price = (value.CPU * CPUP) + (value.CPU * MEMP) + (value.DISK * DISKP) + ((value.DISK * DISKP) / BackupsP)*value.Backup
+        let Price = ((value.CPU * CPUP) + (value.CPU * MEMP) + (value.DISK * DISKP) + ((value.DISK * DISKP) / BackupsP)*value.Backup ) / 4
         res.json({
             CPU: value.CPU,
             MEM: value.MEM,

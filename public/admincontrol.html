@@ -215,7 +215,7 @@
 
 						posting.done(function(data) {
                             $('#reg_token').attr("value", data.RegToken)
-							navigator.clipboard.writeText(`${baseUrl}/registrieren.html?${data.RegToken}`)
+							navigator.clipboard.writeText(`${baseUrl}registrieren.html?${data.RegToken}`)
 							$('#RegSubmitCallback').text(translate('AdminControl.RegTokenForm.Succsess'));
 						});
 

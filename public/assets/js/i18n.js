@@ -1,5 +1,5 @@
 const i18n = new I18n({
-  fallback: 'de',
+  fallback: 'en',
   languages: {
     de: {
       Footer: {
@@ -20,9 +20,18 @@ const i18n = new I18n({
         },
       },
       Startseite: {
-
+        Überschrift: "Kostenloses premium EBG Hosting",
+        Teil1: "Ein kostenloser Gameserver Hoster",
+        Teil1Text: "Wir beiten kostenlose Spieleserver für dich und deine Freunde an die 24/7 laufen.<br>Wir haben Server in Deutschland, Österreich und den USA damit du immer die beste Latenz hast!",
+        Teil2: "Wie bekommst du einen kostenlosen Server?",
+        Teil2Text: "Um einen kostenlosen Gameserver zu erhalten musst du einfach einem der Admins erzählen was du vor hast und warum wir dir einen kostenlosen Server zur verfügung stellen sollten.<br>Die hauptsächliche Zielgruppen sind:<br>- Local/online gaming communitys<br>- Lan-partys<br>- Non-profit Organisationen rund ums Gaming.<br>Mehr Informationen: <a href='https://vag.dev.ebg.pw/faq.html'>FAQ</a>",
+        Teil3: "Wo finde ich einen EBG-Admin?",
+        Teil3Text: "Du kannst uns kontaktieren auf, <a href='https://discord.gg/tqWEsUHgn8'>Discord</a> <a href='https://twitter.com/ebg_pw'>Twitter</a>, Telegram oder jedem anderen Weg den du magst.<br>E-Mail: contact@ebg.pw",
+        Teil4: "Wichtige Links",
+        Teil4Text: "- <a href='https://hosting.ebg.pw'>hosting.ebg.pw</a> | Regestrierung und erhalt der kostenlosen Punkte.<br>- <a href='https://game.ebg.pw'>game.ebg.pw</a> | Erstelle oder lösche Gameserver, du kannst die Resourcen selbst wählen.<br>- <a href='https://panel.ebg.pw'>panel.ebg.pw</a> | Verwalte deine Gameserver: Starte oder Stoppe den Server, lade Dateien hoch und mehr!"
       },
       FAQ: {
+        Title1: "Allgemeine Fragen:",
         FI: "Was ist ein privater Hoster?",
         AI: "Ein privater Hoster, ist ein Hoster der nur für ausgewählte Personen einen Server hostet.",
         FII: "Ist das Hosten bei EBG.PW kostenlos?",
@@ -32,7 +41,9 @@ const i18n = new I18n({
         FIIII: "Wie kann ich mich registrieren?",
         AIIII: "Dazu wird ein Token benötigt, frage einen EBG Admin ob du einen bekommst. Schreibe außerdem eine <i>grobe Zusammenfassung</i> was du genau vor und warum du dieses <i>kostenlose</i> Hosting benötigst. Der Admin endscheidet ob, und welche Resourcen, dir <i>kostenlose</i> zur verfügung gestellt werden.",
         FIIIII: "Wie komme ich an Credits?",
-        AIIIII: "Du kannst alle 7 Tage auf <a href='hosting.ebg.pw'><i>hosting.ebg.pw</i></a> deine wöchentlichen Credits abholen, du bekommst die Credits auch automatisch bis zu 2 Wochen rückwirkend. Wenn du deine Maximalen Credits erreicht hast, verfallen alle weiteren Credits automatisch."
+        AIIIII: "Du kannst kostenlos alle 7 Tage auf <a href='hosting.ebg.pw'><i>hosting.ebg.pw</i></a> deine wöchentlichen Credits abholen, du bekommst die Credits auch automatisch bis zu 2 Wochen rückwirkend. Wenn du deine Maximalen Credits erreicht hast, verfallen alle weiteren Credits automatisch.",
+        Title2: "Informationen über unsere Nodes und Server:",
+        NodesText: "Es sind vielleicht nicht alle Nodes für dich verfügbar!<br>- Node 1: [AT/Linz] - Perfekt für Factorio oder Minecraft<br>- Node 2: [DE/Nürnberg] - Gut für Factorio, Minecraft, Starbound und Terraria<br>- Node 3: [DE/Nürnberg] - Gut für Factorio, Minecraft, Starbound und Terraria<br>- Node 4: [US/New York] - Durschnittliche leistung, ehr für kleinere Server<br>- Node 5: [AT/Linz] - Perfekt für Rust und ARK"
       },
       Login: {
         Form: {
@@ -156,9 +167,18 @@ const i18n = new I18n({
         },
       },
       Startseite: {
-
+        Überschrift: "Free premium EBG Hosting",
+        Teil1: "A free place to host your gameserver",
+        Teil1Text: "We offer you free premium game servers that run 24/7 to play with your friends.<br>We have servers in Germany, Austria and the US so you always have low latancy!",
+        Teil2: "How do you get a free game server?",
+        Teil2Text: "To qualify for a free gameserver you don´t need much, just tell one of the admins what you want and why we should give it to you for free.<br>The main targets are:<br>- Local/online gaming communitys<br>- Lan-partys<br>- Non-profit establisments that have something to do with gaming.<br>More information: <a href='https://vag.dev.ebg.pw/faq.html'>FAQ</a>",
+        Teil3: "Where do i find an EBG-Admin?",
+        Teil3Text: "You can contact us by E-Mail, <a href='https://discord.gg/tqWEsUHgn8'>Discord</a> <a href='https://twitter.com/ebg_pw'>Twitter</a>, Telegram or any other way you like.<br>E-Mail: contact@ebg.pw",
+        Teil4: "Important links",
+        Teil4Text: "- <a href='https://hosting.ebg.pw'>hosting.ebg.pw</a> | Regestration and claming your free weekly coins<br>- <a href='https://game.ebg.pw'>game.ebg.pw</a> | Create and delete your gameservers, choose your own resources<br>- <a href='https://panel.ebg.pw'>panel.ebg.pw</a> | Manage your gameservers: Start or Stop, upload files, make backups and more"
       },
       FAQ: {
+        Title1: "General questions:",
         FI: "What is a privat host?",
         AI: "A privat host, is a host that isn´t public for everbody.",
         FII: "Is the hosting on EBG.PW free",
@@ -168,7 +188,9 @@ const i18n = new I18n({
         FIIII: "How can i register?",
         AIIII: "You need a special token, to get that you have to ask an EBG Admin. Also write a <i> rough summary </i> what exactly you are planning and why you need this <i> free </i> hosting. The admin decides whether you get it or not and how many resources are made available to you for <i> free </i>.",
         FIIIII: "How do i get credits?",
-        AIIIII: "You can claim your free coins once every 7 days at <a href='hosting.ebg.pw'><i>hosting.ebg.pw</i></a>, you get up to 2 weeks of creadits if you missed to pick them up last week. If you exeede your maximum amount of credits, the rest will expire automaticly."
+        AIIIII: "You can claim your free coins once every 7 days at <a href='hosting.ebg.pw'><i>hosting.ebg.pw</i></a>, you get up to 2 weeks of creadits if you missed to pick them up last week. If you exeede your maximum amount of credits, the rest will expire automaticly.",
+        Title2: "Information about Nodes and Servers:",
+        NodesText: "Maybe not every node is avaible to you!<br>- Node 1: [AT/Linz] - Perfect for Minecraft or Factorio<br>- Node 2: [DE/Nuernberg] - Good for Factorio, Minecraft, Starbound and Terraria<br>- Node 3: [DE/Nuernberg] - Good for Factorio, Minecraft, Starbound and Terraria<br>- Node 4: [US/New York] - Above avrage performance, good for smaler servers<br>- Node 5: [AT/Linz] - Great for Rust and ARK"
       },
       Login: {
         Form: {

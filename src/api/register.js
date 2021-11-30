@@ -24,7 +24,7 @@ const limiter = rateLimit({
 const NewUserReg = Joi.object({
     Name: Joi.string().required().min(4).max(20),
     Email: Joi.string().email().required().max(32),
-    Password: Joi.string().required().min(8).max(50),
+    Password: Joi.string().required().min(10).max(50),
     RegToken: Joi.string().required(),
     Lang: Joi.string().required().max(2),
     LegalAccepted: Joi.boolean().required()

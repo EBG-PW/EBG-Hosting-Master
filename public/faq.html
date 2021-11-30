@@ -30,6 +30,7 @@
 					<section id="main" class="wrapper">
 						<div class="inner">
 							<div class="accordion">
+								<h2 id="GeneralI"></h2>
 								<div class="accordion-item">
 								  <div id="Q1" class="accordion-item-header">
 									Text 1
@@ -83,6 +84,11 @@
 								  </div>
 								</div>
 							  </div>
+							  <br>
+							  <div class="accordion">
+								<h2 id="GeneralII"></h2>
+								<div id="NodesText"></div>
+							  </div>
 						</div>
 					</section>
 
@@ -125,7 +131,8 @@
 				createHeaderMessage();
                 createSiteTitle();
 				translateFooter();
-
+				
+				$('#GeneralI').html(translate('FAQ.Title1'));
 				$('#Q1').html(translate('FAQ.FI'));
 				$('#A1').html(translate('FAQ.AI'));
 				$('#Q2').html(translate('FAQ.FII'));
@@ -136,6 +143,8 @@
 				$('#A4').html(translate('FAQ.AIIII'));
 				$('#Q5').html(translate('FAQ.FIIIII'));
 				$('#A5').html(translate('FAQ.AIIIII'));
+				$('#GeneralII').html(translate('FAQ.Title2'));
+				$('#NodesText').html(translate('FAQ.NodesText'));
 			</script>
 	</body>
 	</body>

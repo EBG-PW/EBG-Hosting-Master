@@ -25,10 +25,21 @@
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-
 				<!-- Main -->
 					<section id="main" class="wrapper">
 						<div class="inner">
+							<h1 id="MainHeader"></h1>
+							<h3 id="SecondHeader"></h3>
+							<div id="Intruduction"></div>
+							<br>
+							<h3 id="Reqirements"></h3>
+							<div id="ReqirementsText"></div>
+							<br>
+							<h3 id="admins"></h3>
+							<div id="adminstext"></div>
+							<br>
+							<h3 id="links"></h3>
+							<div id="linkslist"></div>
 						</div>
 					</section>
 
@@ -70,6 +81,16 @@
                 createHeaderMessage();
                 createSiteTitle();
 				translateFooter();
+
+				$('#MainHeader').html(translate('Startseite.Überschrift'));
+				$('#SecondHeader').html(translate('Startseite.Teil1'));
+				$('#Intruduction').html(translate('Startseite.Teil1Text'));
+				$('#Reqirements').html(translate('Startseite.Teil2'));
+				$('#ReqirementsText').html(translate('Startseite.Teil2Text'));
+				$('#admins').html(translate('Startseite.Teil3'));
+				$('#adminstext').html(translate('Startseite.Teil3Text'));
+				$('#links').html(translate('Startseite.Teil4'));
+				$('#linkslist').html(translate('Startseite.Teil4Text'));
 			</script>
 	</body>
 	</body>

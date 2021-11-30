@@ -114,7 +114,7 @@
         				const baseUrl = getUrl.protocol + "//" + getUrl.host + "/";
 						const OrderIDFromUrl = getUrl.search.split("?").join("") //Get RegToken from URL
 
-					if($('#password').val() === $('#rpassword').val() && $('#password').val().length > 9){
+					if($('#password').val() === $('#rpassword').val() && $('#password').val().length > 10){
 						if($('#lastCheck').is(':checked') === false){
 							$('#result').text(translate('Registrieren.Form.Error.ConfirmLegal'));
 							$('#CheckBoxHi').addClass("highlight");

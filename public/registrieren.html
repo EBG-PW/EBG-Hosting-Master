@@ -123,7 +123,7 @@
 							}, 2000);
 						}else{
 							var posting = $.post(`${baseUrl}api/v1/register/register`,{
-								Name: $('#name').val(),
+								Name: $('#name').val().replace(/[^0-9a-z]/gi, ''),
 								Email: $('#email').val(),
 								Password: $('#password').val(),
 								RegToken: OrderIDFromUrl,

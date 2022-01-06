@@ -69,7 +69,7 @@ const i18n = new I18n({
           Submit: "Registrieren",
           LegalOne: "Ich akzeptiere die </div><a id='Footer_AGB' onclick='Show_Legal(`AGB`)'>AGB</a> und </div><a id='Footer_DAT' onclick='Show_Legal(`DAT`)'>Datenschutz Bestimmungen</a>!",
           Errors: {
-            PasswordMissmatch: "Passwörter stimmen nicht überein, sind leer oder zu kurz!",
+            PasswordMissmatch: "Passwörter stimmen nicht überein, sind leer oder zu kurz! (Bitte minderstens 10 Zeichen)",
             MissingField: " Feld muss ausgefüllt sein!",
             WrongField: " Feld hat keinen gültigen Wert, bitte überprüfen!",
             MissingToken: "Dieser Host ist privat! Eine Registrierung ist ohne Token nicht möglich. Bitte fragen Sie einen Admin.",
@@ -216,7 +216,7 @@ const i18n = new I18n({
           Submit: "Registration",
           LegalOne: "I accept the </div><a id='Footer_AGB' onclick='Show_Legal(`AGB`)'>ToS</a> and </div><a id='Footer_DAT' onclick='Show_Legal(`DAT`)'>Privacy policy</a>!",
           Errors: {
-            PasswordMissmatch: "Passwords do not match, are empty or too short!",
+            PasswordMissmatch: "Passwords do not match, are empty or too short! (Pleas use at least 10 characters)",
             MissingField: " Field must be filled out!",
             WrongField: " Field has no valid value, please check!",
             MissingToken: "This host is private! Registration is not possible without a token. Please ask an admin.",
@@ -340,7 +340,7 @@ const i18n = new I18n({
           Submit: "Registrazione",
           LegalOne: "Accetto il </div><a id='Footer_AGB' onclick='Show_Legal(`AGB`)'>Condizioni</a> and </div><a id='Footer_DAT' onclick='Show_Legal(`DAT`)'>Protezione</a>!",
           Errors: {
-            PasswordMissmatch: "Le password non corrispondono o mancanti!",
+            PasswordMissmatch: "Le password non corrispondono o mancanti! (Le password devono essere almeno 10 caratteri)",
             MissingField: " Il campo deve essere compilato!",
             WrongField: " Il campo non contiene un valore valido, si prega di controllare!",
             MissingToken: "Questo host è privato! La registrazione non è possibile senza token. Si prega di chiedere a un amministratore.",
